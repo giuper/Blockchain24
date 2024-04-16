@@ -32,7 +32,13 @@
     snippet
 
     ```python
-        unsignedTx=PaymentTxn(sAddr,params,rAddr,amount,None,note)
+        unsignedTx=PaymentTxn(
+            sender=sAddr,
+            sp=params,
+            receiver=rAddr,
+            amt=amount,
+            note=b"Ciao Pino",
+        )
         signedTx=unsignedTx.sign(sKey)
         txid=algodClient.send_transaction(signedTx)
     ```
