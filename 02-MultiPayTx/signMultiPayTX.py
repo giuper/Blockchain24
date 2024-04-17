@@ -1,6 +1,6 @@
 import sys
 from algosdk import mnemonic
-from algosdk.v2client import algod
+#from algosdk.v2client import algod
 from algosdk.future.transaction import write_to_file, retrieve_from_file
 import base64
 

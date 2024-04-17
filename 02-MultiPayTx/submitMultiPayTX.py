@@ -1,24 +1,18 @@
 import sys
 import json
 import base64
-from algosdk import account, mnemonic
 from algosdk.v2client import algod
-from algosdk.future.transaction import Multisig, MultisigTransaction, PaymentTxn
 from algosdk.future.transaction import retrieve_from_file
-from utilities import *
+from utilities import algodAddress, algodToken, wait_for_confirmation
 
 
 def main():
     if len(sys.argv)<2:
-        print("usage: python "+sys.argv[0]+" <Signed TX> [<node directory>]")
+        print("usage: python "+sys.argv[0]+" <Signed TX>")
         exit()
 
-    signedTXFile=sys.argv[1]
-    if len(sys.argv)==3:
-        directory=sys.argv[2]
-    else:
-        directory=""
-    algodClient=getClient(directory)
+    signedTXFile=sys.argv[1] #file containing the signed transaction
+    algodClient = algod.AlgodClient(algodToken,algodAddress)
 
     txInL=retrieve_from_file(signedTXFile)
     for tx in txInL:

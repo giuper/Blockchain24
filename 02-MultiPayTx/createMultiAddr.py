@@ -10,6 +10,7 @@ def createMultiSig(accounts,outputFile):
     print("Consisting of accounts: ")
     for addr in accounts:
         print(f'{"":20s}{addr:s}')
+    print(f'{"with threshold:":20s}{threshold:d}')
 
     with open(outputFile,'w') as f:
         f.write(maddr)
