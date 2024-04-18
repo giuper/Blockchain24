@@ -1,5 +1,5 @@
-# *Introduction to blockchain and smart contract design*
-## FOSAD 22 ##
+# *Blockchain*
+## UNISA Spring 24 ##
 
 ## Code for multi signatures ##
 ### All in one ###
