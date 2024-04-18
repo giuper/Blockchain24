@@ -1,5 +1,5 @@
-# *Introduction to blockchain and smart contract design*
-## FOSAD 22 ##
+# *Blockchain*
+## UNISA Spring 24 ##
 
 ## Logic (or Smart) Signatures ##
 
