@@ -12,18 +12,18 @@ the filename containing the address of the manager.
 Take note of the asset index that will be needed for the following steps.
 
 ```python
-   txn=AssetConfigTxn(
+    txn=AssetConfigTxn(
         sender=creatorAddr,
         sp=params,
         total=1000,
         default_frozen=False,
-        unit_name=AssetName+"U",
         asset_name=AssetName,
+        unit_name=AssetUnit,
         manager=managerAddr,
         reserve=reserveAddr,
         freeze=freezeAddr,
         clawback=clawbackAddr,
-        url="https://giuper.github.io",
+        url="https://github.com/giuper/Blockchain24",
         decimals=0)
 ```
 
