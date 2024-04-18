@@ -31,8 +31,8 @@ The script sets the ```reserve address```, ```freeze address```, and ```clawback
 the ```manager address```. 
 
 
-The unsigned and signed transaction are found in files ```assetCreation.utxn``` and 
-```assetCreation.stxn```, respectively. 
+The unsigned and signed transaction are found in files ```TX/01-assetCreation.utxn``` and 
+```TX/01-assetCreation.stxn```, respectively. 
 Use ```goal clerk inspect``` to view their content.
 
 2. [listCreatedAsset.py](./listCreatedAsset.py) can be used to list all assets created by an address.
@@ -62,8 +62,8 @@ Use ```goal clerk inspect``` to view their content.
             sp=params,receiver=holderAddr,amt=0,index=assetID)
 ```
     
-The unsigned and signed transaction are found in files ```assetOPTin.utxn``` and 
-```assetOPTin.stxn```, respectively. 
+The unsigned and signed transaction are found in files ```TX/02-assetOPTin.utxn``` and 
+```TX/02-assetOPTin.stxn```, respectively. 
 Use ```goal clerk inspect``` to view their content.
 
 4. Run [03-transferAsset.py](./03-transferAsset.py) to transfer assets between two addresses. 
@@ -79,10 +79,12 @@ Use ```goal clerk inspect``` to view their content.
                 receiver=receiverAddr,amt=10,index=assetID)
 ```
 
-The unsigned and signed transaction are found in files ```assetTrans.utxn``` and 
-    ```assetTrans.stxn```, respectively. 
+The unsigned and signed transaction are found in files ```TX/03-assetTrans.utxn``` and 
+    ```TX/03-assetTrans.stxn```, respectively. 
     Use ```goal clerk inspect``` to view their content.
 
 5. Run [04-destroyAsset.py](./04-destroyAsset.py) to destroy an asset.
     Note that it is required that, at the time an asset is destroy, all instances
     of the asset are owned by the manager.
+    The unsigned and signed transaction are found in files ```TX/04-assetDestroy.utxn``` and 
+    ```TX/04-assetDestroy.stxn```, respectively. 
