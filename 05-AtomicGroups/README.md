@@ -35,13 +35,13 @@ and the directory of the node.
 
 We have the following transactions (use ```goal clerk inspect``` to see the content of the transactions)
 
-1.  [Unsigned transaction from Account1 to Account2](TX/A1toA2.utnx)
-2.  [Unsigned transaction from Account1 to Account2 with GID](TX/A1toA2withGID.utnx)
-3.  [Signed transaction from Account1 to Account2 with GID](TX/A1toA2withGID.stnx)
+1.  [Unsigned transaction from Account1 to Account2](TX/A1toA2.utx)
+2.  [Unsigned transaction from Account1 to Account2 with GID](TX/A1toA2withGID.utx)
+3.  [Signed transaction from Account1 to Account2 with GID](TX/A1toA2withGID.stx)
 
 and 
-1.  [Unsigned transaction from Account2 to Account1](TX/A2toA1.utnx)
-2.  [Unsigned transaction from Account2 to Account1 with GID](TX/A2toA1withGID.utnx)
-3.  [Signed transaction from Account2 to Account1 with GID](TX/A2toA1withGID.stnx)
+1.  [Unsigned transaction from Account2 to Account1](TX/A2toA1.utx)
+2.  [Unsigned transaction from Account2 to Account1 with GID](TX/A2toA1withGID.utx)
+3.  [Signed transaction from Account2 to Account1 with GID](TX/A2toA1withGID.stx)
     
 
