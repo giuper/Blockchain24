@@ -16,28 +16,28 @@ def swap(account1,account2,assetId,algodClient):
 ##account2 pays account1 1Algo 
     txn0=PaymentTxn(
         sender=pk2,sp=params,receiver=pk1,amt=1_000_000)
-    write_to_file([txn0],"TX/A2toA1.utnx")
+    write_to_file([txn0],"TX/A2toA1.utx")
 
 
 ##account1 transfers 4 unit of the asset to account2 
     txn1=AssetTransferTxn(
         sender=pk1,sp=params,receiver=pk2,amt=4,index=assetId)
-    write_to_file([txn1],"TX/A1toA2.utnx")
+    write_to_file([txn1],"TX/A1toA2.utx")
 
 ##create the group
     gid=calculate_group_id([txn0, txn1])
 
 #account2 signs the payment transaction txn0
     txn0.group=gid
-    write_to_file([txn0],"TX/A2toA1withGID.utnx")
+    write_to_file([txn0],"TX/A2toA1withGID.utx")
     stxn0=txn0.sign(sk2)
-    write_to_file([stxn0],"TX/A2toA1withGID.stnx")
+    write_to_file([stxn0],"TX/A2toA1withGID.stx")
 
 #account 1 signs the asset transfer
     txn1.group=gid
-    write_to_file([txn1],"TX/A1toA2withGID.utnx")
+    write_to_file([txn1],"TX/A1toA2withGID.utx")
     stxn1=txn1.sign(sk1)
-    write_to_file([stxn1],"TX/A1toA2withGID.stnx")
+    write_to_file([stxn1],"TX/A1toA2withGID.stx")
 
     print("Asset holding before the transaction")
     print("Account 1:      ",pk1)
