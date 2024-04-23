@@ -1,0 +1,129 @@
+#pragma version 5
+txn ApplicationID
+int 0
+==
+bnz main_l20
+txn OnCompletion
+int OptIn
+==
+bnz main_l19
+txn OnCompletion
+int CloseOut
+==
+bnz main_l16
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l13
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l10
+txn OnCompletion
+int NoOp
+==
+bnz main_l7
+err
+main_l7:
+txna ApplicationArgs 0
+btoi
+store 1
+load 1
+byte "max"
+app_global_get
+<=
+load 1
+int 0
+>
+&&
+load 1
+byte "heap"
+app_global_get
+<=
+&&
+txn Sender
+addr YUETKSGOZQSW6NFOYHCME6RCYSPWJD7KSGUAPIUEKFMY7SSVONUPKOFFE4
+==
+byte "turn"
+app_global_get
+int 0
+==
+&&
+txn Sender
+addr 442AR4KOYAVUNX6FPATA5RFW7TUJPW2AHZBYDBKBP7U4CHUOVBVUU4NWQY
+==
+byte "turn"
+app_global_get
+int 1
+==
+&&
+||
+&&
+bnz main_l9
+int 1
+return
+main_l9:
+byte "heap"
+app_global_get
+store 0
+byte "heap"
+load 0
+txna ApplicationArgs 0
+btoi
+-
+app_global_put
+byte "turn"
+app_global_get
+store 0
+byte "turn"
+int 1
+load 0
+-
+app_global_put
+int 1
+return
+main_l10:
+txn Sender
+addr Z7OZMYXR5SYVBNKFKCEDRAUBDPIZKEKISUDGINMYQBBAQLG2BYEU2EGM6Y
+==
+bnz main_l12
+int 0
+return
+main_l12:
+int 1
+return
+main_l13:
+txn Sender
+addr Z7OZMYXR5SYVBNKFKCEDRAUBDPIZKEKISUDGINMYQBBAQLG2BYEU2EGM6Y
+==
+bnz main_l15
+int 0
+return
+main_l15:
+int 1
+return
+main_l16:
+txn Sender
+addr Z7OZMYXR5SYVBNKFKCEDRAUBDPIZKEKISUDGINMYQBBAQLG2BYEU2EGM6Y
+==
+bnz main_l18
+int 0
+return
+main_l18:
+int 1
+return
+main_l19:
+int 1
+return
+main_l20:
+byte "turn"
+int 0
+app_global_put
+byte "heap"
+int 4
+app_global_put
+byte "max"
+int 3
+app_global_put
+int 1
+return
