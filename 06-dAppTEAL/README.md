@@ -1,4 +1,4 @@
-# *Blockchain *
+# *Blockchain*
 ## UNISA Spring 24 ##
 
 ## Distributed Applications (aka dApps) ##
