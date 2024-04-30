@@ -46,9 +46,6 @@ def main(creatorMnemFile,approvalFile,algodClient):
     approvalProgram=base64.b64decode(approvalProgramResponse['result'])
 
     params=algodClient.suggested_params()
-    utx=ApplicationCreateTxn(creatorAddr,params,on_complete, \
-                                        approvalProgram,clearProgram, \
-                                        globalSchema,localSchema)
     utx=ApplicationCreateTxn(
         creatorAddr,
         params,
