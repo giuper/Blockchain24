@@ -12,8 +12,8 @@ def main(MnemFile,index,algodClient):
     params=algodClient.suggested_params()
 
     appAddr=e.encode_address(e.checksum(b'appID'+index.to_bytes(8, 'big')))
-    print("app id:          ",index)
-    print("app Addr:        ",appAddr)
+    print(f'{"app id:":32s}{index}')
+    print(f'{"app Addr:":32s}{appAddr}')
 
     with open(MnemFile,'r') as f:
         Mnem=f.read()
