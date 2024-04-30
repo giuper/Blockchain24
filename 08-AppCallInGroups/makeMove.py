@@ -6,7 +6,7 @@ from algosdk import account, mnemonic
 from algosdk.v2client import algod
 from algosdk.future import transaction
 from algosdk.future.transaction import write_to_file
-from algosdk.future.transaction import ApplicationNoOpTxn
+#from algosdk.future.transaction import ApplicationNoOpTxn
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
 
 
@@ -25,7 +25,7 @@ def makeMove(MnemFile,DealerFile,index,move,algodClient):
 
     appArgs=[move.to_bytes(8,'big')]
     ptxn=transaction.PaymentTxn(sender=Pk,sp=params,receiver=Dealer,amt=1_000_000)
-    mtxn=ApplicationNoOpTxn(Addr,params,index,appArgs)
+    mtxn=transaction.ApplicationNoOpTxn(Addr,params,index,appArgs)
     gid=transaction.calculate_group_id([ptxn,mtxn])
 
     ptxn.group=gid
