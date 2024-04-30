@@ -13,10 +13,10 @@ def main():
     
     receiverADDRFile=sys.argv[1]
     myprogram=sys.argv[2]
-    #arg_str=sys.argv[3]
-    #print(arg_str)
+    arg_str=sys.argv[3]
+    print(arg_str)
 
-    algodClient = algod.AlgodClient(algodToken,algodAddress)
+    algodClient=algod.AlgodClient(algodToken,algodAddress)
     amount=1_000_000
     
     # Read TEAL program
@@ -38,7 +38,7 @@ def main():
     # if not, omit args param
     # string parameter
     
-    arg_str="weather comfort erupt verb pet range endorse exhibit tree brush crane man"
+    #arg_str="weather comfort erupt verb pet range endorse exhibit tree brush crane man"
     #arg_str="827154396965327148341689752593468271472513689618972435786235914154796823239841567"
 
     arg1=arg_str.encode()
@@ -52,7 +52,7 @@ def main():
     
     # Create the LogicSigTransaction with contract account LogicSig
     lstx=transaction.LogicSigTransaction(txn,lsig)
-    transaction.write_to_file([lstx],sys.argv[0][:-3]+".stxn")
+    transaction.write_to_file([lstx],sys.argv[0][:-3]+".stx")
     # Send raw LogicSigTransaction to network
     try:
         txid=algodClient.send_transaction(lstx)
