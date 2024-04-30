@@ -37,7 +37,7 @@ and creates the assets. For example,the following is the PyTEAL code for creatin
       TxnBuilder.Submit(),
 ```
 
-The application call is part of group of transaction by which the DAO also receives some initial funding to be used
+The application call is part of group of transactions by which the DAO also receives some initial funding to be used
 to pay the fees of the transaction that will be executed.
 
 4. The founder can check in by executing [optinFounder.py](optinFounder.py) and they receive one governor token.
@@ -52,7 +52,7 @@ to pay the fees of the transaction that will be executed.
     InnerTxnBuilder.Submit(),
 ```
 
-Other users can check in by executing [optinUder.py](optinUder.py)
+Other users can check in by executing [optinUser.py](optinUser.py)
 
 5. Holder of the governor tokens can propose to set the selling price using program [price.py](price.py).
 If the proposed price is backed by another governor it becomes effective.
