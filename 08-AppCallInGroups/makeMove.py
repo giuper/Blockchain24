@@ -24,8 +24,8 @@ def makeMove(MnemFile,DealerFile,index,move,algodClient):
         Dealer=f.read()
 
     appArgs=[move.to_bytes(8,'big')]
-    mtxn=ApplicationNoOpTxn(Addr,params,index,appArgs)
     ptxn=transaction.PaymentTxn(sender=Pk,sp=params,receiver=Dealer,amt=1_000_000)
+    mtxn=ApplicationNoOpTxn(Addr,params,index,appArgs)
     gid=transaction.calculate_group_id([ptxn,mtxn])
 
     ptxn.group=gid
