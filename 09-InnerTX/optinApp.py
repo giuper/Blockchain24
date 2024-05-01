@@ -28,11 +28,11 @@ def main(MnemFile,index,algodClient):
 
     payTx.group=gid
     optTx.group=gid
-    write_to_file([payTx],"TX/Pay.utx")
+    write_to_file([payTx],"TX/PayOpt.utx")
     write_to_file([optTx],"TX/Opt.utx")
     sPayTx=payTx.sign(SK)
     sOptTx=optTx.sign(SK)
-    write_to_file([sPayTx],"TX/Pay.stx")
+    write_to_file([sPayTx],"TX/PayOpt.stx")
     write_to_file([sOptTx],"TX/Opt.stx")
 
 

@@ -1,0 +1,32 @@
+How to play this version of NIM on Algorand
+
+
+1. Create the TEAL approval file nim.teal by running the command 
+    python min.py
+   
+    you must provide the name of the files containing the addresses
+    of the two players and the address of the creator of the app
+
+2. Create the application by running 
+   01-createApp.py that is found in the folder 06-dAppTEAL
+
+   you must provide 
+        - the name of the file containing the mnem of the creator of the app
+            (it must correspond to the address of the creator used 
+            at step 1)
+        - the name of the file containing the teal of the approval program
+            (the file nim.teal generated at the previous step)
+    it expects to find the clear program in the file TEAL/clear.teal
+    it return the application index to be used in the next steps
+
+3. The two players must optin by running 
+   optinApp.py that is found in this folder
+
+4. To actually play the game the two players can use makeMove from folder
+   08-AppCallInGroups
+
+5. readStatus.py from folder 07-dAppPyTEAL can be used to monitor the status of the game
+
+6. 04-clearApp.py and 05-deleteApp.py from folder 06-dAppTEAL can be used at the end to clear and destroy the app.
+
+

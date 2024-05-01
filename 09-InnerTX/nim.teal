@@ -1,0 +1,183 @@
+#pragma version 5
+txn ApplicationID
+int 0
+==
+bnz main_l24
+txn OnCompletion
+int OptIn
+==
+bnz main_l21
+txn OnCompletion
+int CloseOut
+==
+bnz main_l18
+txn OnCompletion
+int UpdateApplication
+==
+bnz main_l15
+txn OnCompletion
+int DeleteApplication
+==
+bnz main_l12
+txn OnCompletion
+int NoOp
+==
+bnz main_l7
+err
+main_l7:
+gtxna 1 ApplicationArgs 0
+btoi
+store 1
+global GroupSize
+int 2
+==
+gtxn 0 TypeEnum
+int pay
+==
+&&
+gtxn 0 Receiver
+addr Z7OZMYXR5SYVBNKFKCEDRAUBDPIZKEKISUDGINMYQBBAQLG2BYEU2EGM6Y
+==
+&&
+gtxn 0 Amount
+int 1000000
+>=
+&&
+load 1
+byte "max"
+app_global_get
+<=
+&&
+load 1
+int 0
+>
+&&
+load 1
+byte "heap"
+app_global_get
+<=
+&&
+gtxn 1 Sender
+addr YUETKSGOZQSW6NFOYHCME6RCYSPWJD7KSGUAPIUEKFMY7SSVONUPKOFFE4
+==
+byte "turn"
+app_global_get
+int 0
+==
+&&
+gtxn 1 Sender
+addr 442AR4KOYAVUNX6FPATA5RFW7TUJPW2AHZBYDBKBP7U4CHUOVBVUU4NWQY
+==
+byte "turn"
+app_global_get
+int 1
+==
+&&
+||
+&&
+bnz main_l9
+int 0
+return
+main_l9:
+byte "heap"
+app_global_get
+store 0
+byte "heap"
+load 0
+gtxna 1 ApplicationArgs 0
+btoi
+-
+app_global_put
+byte "turn"
+app_global_get
+store 0
+byte "turn"
+int 1
+load 0
+-
+app_global_put
+byte "heap"
+app_global_get
+int 0
+==
+bnz main_l11
+int 1
+return
+main_l11:
+itxn_begin
+int pay
+itxn_field TypeEnum
+int 899000
+itxn_field Amount
+txn Sender
+itxn_field Receiver
+itxn_submit
+int 1
+return
+main_l12:
+txn Sender
+addr Z7OZMYXR5SYVBNKFKCEDRAUBDPIZKEKISUDGINMYQBBAQLG2BYEU2EGM6Y
+==
+bnz main_l14
+int 0
+return
+main_l14:
+int 1
+return
+main_l15:
+txn Sender
+addr Z7OZMYXR5SYVBNKFKCEDRAUBDPIZKEKISUDGINMYQBBAQLG2BYEU2EGM6Y
+==
+bnz main_l17
+int 0
+return
+main_l17:
+int 1
+return
+main_l18:
+txn Sender
+addr Z7OZMYXR5SYVBNKFKCEDRAUBDPIZKEKISUDGINMYQBBAQLG2BYEU2EGM6Y
+==
+bnz main_l20
+int 0
+return
+main_l20:
+int 1
+return
+main_l21:
+global GroupSize
+int 2
+==
+gtxn 0 TypeEnum
+int pay
+==
+&&
+gtxn 0 Receiver
+global CurrentApplicationAddress
+==
+&&
+gtxn 0 Amount
+int 500000
+>=
+&&
+bnz main_l23
+int 0
+return
+main_l23:
+int 1
+return
+main_l24:
+byte "turn"
+int 0
+app_global_put
+byte "heap"
+int 4
+app_global_put
+byte "max"
+int 3
+app_global_put
+byte "nofmoves"
+int 0
+app_global_put
+int 1
+return
