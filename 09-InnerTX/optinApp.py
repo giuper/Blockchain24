@@ -4,7 +4,7 @@ import algosdk.encoding as e
 from algosdk import account, mnemonic
 from algosdk.v2client import algod
 from algosdk.future import transaction
-from algosdk.future.transaction import ApplicationOptInTxn, PaymentTxn
+from algosdk.future.transaction import ApplicationOptInTxn, PaymentTxn, write_to_file
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
 
 def main(MnemFile,index,algodClient):
@@ -24,13 +24,16 @@ def main(MnemFile,index,algodClient):
     note="Opt in fee"
     payTx=PaymentTxn(playerAddr,params,appAddr,500_000,None,note)
     optTx=ApplicationOptInTxn(playerAddr,params,index)
-
     gid=transaction.calculate_group_id([payTx, optTx])
+
     payTx.group=gid
     optTx.group=gid
-
+    write_to_file([payTx],"TX/Pay.utx")
+    write_to_file([optTx],"TX/Opt.utx")
     sPayTx=payTx.sign(SK)
     sOptTx=optTx.sign(SK)
+    write_to_file([sPayTx],"TX/Pay.stx")
+    write_to_file([sOptTx],"TX/Opt.stx")
 
 
     txId=algodClient.send_transactions([sPayTx,sOptTx])
