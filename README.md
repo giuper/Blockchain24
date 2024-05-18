@@ -4,4 +4,4 @@
 
 *[Slides](./Slides) and [code](./Code)*
 
-*[Exercise] (./EserciziBlockchain.pdf)*
+*[Exercises](./EserciziBlockchain.pdf)*
