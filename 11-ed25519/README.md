@@ -21,7 +21,7 @@ A similar effect can be obtained by using the command
 
 where ```<mnem>``` is the 25-word mnemonic (not the name of the file containing it).
 
-Note that the two secret key extracted differ but they produce the same signature.
+Note that the two secret keys extracted differ but they produce the same signature.
 <Discussion to be added>
 
 
