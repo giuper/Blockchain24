@@ -18,6 +18,8 @@ def main(MnemFile,index,algodClient):
 
     signature64='MkiiTrSOF15IlUIWt/REzDOboC1Us064NHpzW5iYU5t9vGcgAGKICT0qtn8Sr7SmBdU9+f1eLlWjVVYQGmlIAA=='
     signature=base64.b64decode(signature64)
+    print(f'{"sig64":20s}{signature64}')
+    print(f'{"sig":20s}{signature}')
 
    
 
