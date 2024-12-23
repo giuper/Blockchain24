@@ -21,7 +21,6 @@ def main(MnemFile,index,algodClient):
     print(f'{"sig64":20s}{signature64}')
     print(f'{"sig":20s}{signature}')
 
-   
 
     Arg11=1
     appArgs1=[signature,Arg11.to_bytes(8,'big')]
