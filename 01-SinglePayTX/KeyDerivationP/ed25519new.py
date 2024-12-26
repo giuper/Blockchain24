@@ -13,6 +13,9 @@
 # with this software. If not, see
 # <http://creativecommons.org/publicdomain/zero/1.0/>.
 
+## taken from https://github.com/pyca/ed25519
+## Thu 26 Dec 2024 
+
 """
 NB: This code is not safe for use with secret keys or secret data.
 The only safe use of this code is for verifying signatures on public messages.
