@@ -1,4 +1,5 @@
 #!/usr/bin/python3.10
+##https://developer.algorand.org/docs/get-details/accounts/#transformation-private-key-to-base64-private-key
 
 import hashlib
 from ed25519new import publickey_unsafe as publickey
