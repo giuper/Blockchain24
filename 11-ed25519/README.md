@@ -36,4 +36,4 @@ The signature can be obtained with the following command:
 
 
 ### References
-[This](https://developer.algorand.org/articles/verify-signatures-and-signed-data-within-algorand-smart-contracts/) is very useful.
+[This](https://developer.algorand.org/articles/verify-signatures-and-signed-data-within-algorand-smart-contracts/) article is very useful.
