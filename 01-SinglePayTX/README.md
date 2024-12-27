@@ -51,8 +51,8 @@
     ```
 
     The unsigned and signed transactions are found [here](TX/Pay.utx) 
-    and [here](TX/Pay.stx). Use the following command to inspect the 
-    transactions.
+    and [here](TX/Pay.stx). These are binary files.
+    Use the following command to inspect the transactions.
 
 ```
         goal clerk inspect
