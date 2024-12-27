@@ -35,22 +35,5 @@ The signature can be obtained with the following command:
 
 
 
-Smart contracts (or *distributed applications* or *dApps*), 
-unlike smart signatures, have a state that consists of
-*global* variables (i.e., all addresses see the same value) 
-and *local* (i.e., per address) variables.
-
-In this unit we design and deploy 
-a simple dApp that exemplifies the use of global and local state.
-Specifically, the dApp maintains one global counter 
-```gcnt1```  that is incremented by 1 at each invocation
-and one local counter 
-```lcnt``` that is incremented by 7 at each invocation per address.
-
-### Preparing the TEAL file ###
-The TEAL file needs to be instantiated with three values:
-
-    1. The creator address
-    2. The signer address
-    3. The base64 encoded string for which it expects to receive a signature
-
+### References
+[This](https://developer.algorand.org/articles/verify-signatures-and-signed-data-within-algorand-smart-contracts/) is very useful.
