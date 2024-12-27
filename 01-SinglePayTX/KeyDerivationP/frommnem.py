@@ -13,11 +13,11 @@ from algosdk import account, mnemonic
 folder="../Accounts/"
 prefix="-kdpy"
 
-print("this script derives the public key in three different ways\n")
+print("this script derives the public key in three different ways")
 print("\tas second half of the secret key obtained from the mnemonic")
 print("\tby invoking publickey method of the ED25519 library on the secret key")
 print("\tby decoding the address of the account")
-print("keys are written in folder\n",folder)
+print("keys are written in folder",folder)
 print("the script needs the mnemonic that is found in folder",folder,"in a file called <account name>.mnem")
 
 if (len(sys.argv)!=2):
@@ -25,16 +25,14 @@ if (len(sys.argv)!=2):
     exit()
 accountName=sys.argv[1]
     
-##files where intermediate results will be stored
+##files for the intermediate results 
 fileSK64=folder+accountName+prefix+".sk64"               #the base64-encoded secret key
 fileSK=folder+accountName+prefix+".sk"                   #the secret key in binary
 fileAddr=folder+accountName+prefix+".addr"               #the address
-filePKHex=folder+accountName+prefix+".pkhex" 
-filePK=folder+accountName+prefix+".pk"
 filePKSDKed25519=folder+accountName+prefix+"-ed25519.pk" #the public key computed by the python implementation of ED25519
 
 print("Derive secret and public key from mnem\n");
-with open(accountName+".mnem",'r') as f:
+with open(folder+accountName+".mnem",'r') as f:
     Mnem=f.read()
 
 SK64=mnemonic.to_private_key(Mnem)                     #obtain base64-encoded secret key from mnemonic
