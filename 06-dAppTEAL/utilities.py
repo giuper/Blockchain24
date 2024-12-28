@@ -2,7 +2,8 @@ from algosdk.v2client import algod
 from algosdk import mnemonic, account
 
 algodAddress="https://testnet-api.algonode.cloud"
-algodToken="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+algodAddress='https://testnet-api.4160.nodely.dev'
+algodToken=''
 
 def getSKAddr(MnemFile):
     with open(MnemFile,'r') as f:
