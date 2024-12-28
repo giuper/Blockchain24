@@ -44,7 +44,9 @@ def main(creatorMnemFile,approvalFile,algodClient):
     print(f'{"Compiling approval file:":32s}')
     approvalProgramResponse=algodClient.compile(approvalProgramSource)
     approvalProgram=base64.b64decode(approvalProgramResponse['result'])
-
+    approvalProgramAddress=approvalProgramResponse["hash"]
+    print(f'{"Hash approval file:":32s}{approvalProgramAddress:s}')
+    
     params=algodClient.suggested_params()
     utx=ApplicationCreateTxn(
         creatorAddr,
