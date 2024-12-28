@@ -3,6 +3,7 @@ import base64
 import sys
 from Cryptodome.Hash import SHA512
 
+import algosdk.encoding as e
 
 def main(bytecodeFileName,ProHash=None):
     if(ProHash is not None):
@@ -27,8 +28,11 @@ def main(bytecodeFileName,ProHash=None):
     hh=SHA512.new(truncate="256")          #computing the checksum
     hh.update(bcPrefixH)
     checksum=hh.digest()[-4:]
-    final=base64.b32encode(bcPrefixH+checksum)
-    print(f'{"final":28s}{final}')
+    final=base64.b32encode(bcPrefixH+checksum).decode("utf-8").strip("=")
+    print(f'{"final":30s}{final:s}')
+    #or in one shot using the sdk
+    appAddr=e.encode_address(e.checksum(b'Program'+bc))
+    print(f'{"final (sdk)":30s}{appAddr:s}')
 
 if __name__ == "__main__":
 

@@ -58,7 +58,7 @@ Typically the ```approvalProgram``` is read from a file before being compiled as
 ```
 
 The program is associated with an address found in the "hash" field of the Response.
-This [simple](./computeHash.py) program shows how the hash is computed starting from the bytecode file ```.tok```.
+This [simple](./computeHash.py) program shows how the hash is computed starting from the bytecode file ```.tok```. When deployed, the program will be associated to another address (derived from the application id) that can be used to receive algos and assets.
 
 The ```globalScheme``` specifies the number of integer and string global
 variables. In our case we have the following
