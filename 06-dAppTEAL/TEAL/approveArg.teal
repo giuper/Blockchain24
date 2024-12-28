@@ -1,4 +1,4 @@
-#pragma version 4
+#pragma version 10
 // Handle each possible OnCompletion type. We don't have to worry about
 // handling ClearState, because the ClearStateProgram will execute in that
 // case, not the ApprovalProgram.

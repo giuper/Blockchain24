@@ -1,4 +1,4 @@
-#pragma version 5
+#pragma version 10
 int 1
 return
 
