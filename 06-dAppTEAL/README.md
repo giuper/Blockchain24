@@ -54,7 +54,11 @@ Typically the ```approvalProgram``` is read from a file before being compiled as
         approvalProgramSource=f.read()
     approvalProgramResponse=algodClient.compile(approvalProgramSource)
     approvalProgram=base64.b64decode(approvalProgramResponse['result'])
+    approvalProgramAddress=approvalProgramResponse["hash"]
 ```
+
+The program is associated with an address found in "hash" field of the Response.
+This [simple](./computeHash.py) program shows how the hash is computed starting from the bytecode file ```.tok```.
 
 The ```globalScheme``` specifies the number of integer and string global
 variables. In our case we have the following
