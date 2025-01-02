@@ -16,7 +16,7 @@ def main(bytecodeFileName,ProHash=None):
         bProHashPadded=bytes(ProHashPadded,'utf-8')
         print(f'{"program hash padded":28s}{bProHashPadded}')
         ProHashDec=base64.b32decode(bProHashPadded)
-        print(f'{"program hash decoded (hex)":30s}{ProHashDec.hex()}')
+        print(f'{"program hash decoded (hex)":28s}{ProHashDec.hex()}')
         print(f'{"re-encoded":28s}{base64.b32encode(ProHashDec)}')
 
     with open(bytecodeFileName,'rb') as f:   #reading the bytecodefile
@@ -28,8 +28,11 @@ def main(bytecodeFileName,ProHash=None):
     hh=SHA512.new(truncate="256")          #computing the checksum
     hh.update(bcPrefixH)
     checksum=hh.digest()[-4:]
-    final=base64.b32encode(bcPrefixH+checksum).decode("utf-8").strip("=")
-    print(f'{"final":30s}{final:s}')
+    print(f'{"bcPrefixH+checksum":28s}{bcPrefixH+checksum}')
+    final=base64.b32encode(bcPrefixH+checksum).decode("utf-8")
+    print(f'{"final":30s}{final.strip("="):s}')
+    print(f'{"decod":28s}{base64.b32decode(final)}')
+    
     #or in one shot using the sdk
     appAddr=e.encode_address(e.checksum(b'Program'+bc))
     print(f'{"final (sdk)":30s}{appAddr:s}')
