@@ -33,7 +33,14 @@ The signature can be obtained with the following command:
 
 ```goal clerk tealsign --data-b64 <data B64 encoded>  --contract-addr <hash of teal file> --keyfile <secret key file>```
 
+### Signing from python
+[This](./signFromMnem.py) script takes on the command line a file containing a mnemonic (without the .mnem extension), a TEAL compiled program (without the .tok extension) and the string to be signed. It uses the implementation of the EdDSA signature scheme over Curve25519 found at [https://github.com/pyca/ed25519](https://github.com/pyca/ed25519).
+The script performs the following operations:
 
+1. Goes from mnemonic to base64 encoded private key using the ```mnemonic.to_private_key``` from the SDK and then obtaines the private key by b64decoding the string obtained. This results in 64 bytes, the first 32 bytes are the secret key and the remaining are the public key.
+2. The public key is derived also from the secret key by applying the ```publickey``` method from the python implementation in ed25519.
+3. The hash of the program is computed in two different ways: from the address of the program (now it is hard-coded in the script) or by reading the bytecode and by hashing it. The string "Program" is used for has domain separation.
+4. Finally the signature is computed by signing the concatenation of the string "ProgData" (for domain separation), the unmarshaled (i.e., without the 4 byte checksym) hash of the byte code and the actual string to be signed.
 
 ### References
 [This](https://developer.algorand.org/articles/verify-signatures-and-signed-data-within-algorand-smart-contracts/) article is very useful.
