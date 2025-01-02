@@ -1,7 +1,7 @@
 #!/usr/bin/python3.10
-from ed25519new import publickey_unsafe as publickey
-from ed25519new import signature_unsafe as signature
-from ed25519new import checkvalid
+from ed25519 import publickey_unsafe as publickey
+from ed25519 import signature_unsafe as signature
+from ed25519 import checkvalid
 import base64
 import sys
 from algosdk import mnemonic
@@ -32,7 +32,6 @@ with open(MnemFile+".sk",'wb') as f:
     f.write(SK[0:32])
 
 print()
-progAddr="SXWZZSNJZIKBWG2QZHVVAMEFGFJIKRYXRWYN3R7S54GGJ3CGVFZA===="
 progAddr="SXWZZSNJZIKBWG2QZHVVAMEFGFJIKRYXRWYN3R7S54GGJ3CGVFZB7FTEBI"
 print(f'{"computing hash of program:":30s}')
 print(f'{"starting from address:":30s}{progAddr:s}')
