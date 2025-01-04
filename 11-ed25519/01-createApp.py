@@ -6,25 +6,16 @@ import base64
 from algosdk import account, mnemonic
 import algosdk.encoding as e
 from algosdk.v2client import algod
-from algosdk.future.transaction import write_to_file
-from algosdk.future.transaction import ApplicationCreateTxn
-from algosdk.future.transaction import OnComplete
-from algosdk.future.transaction import StateSchema
+from algosdk.future.transaction import write_to_file, ApplicationCreateTxn, OnComplete, StateSchema
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
 
 tealApproval="TEAL/ed25519.teal"
 tealClear="TEAL/clear.teal"
 
-####def compile_program(client: algod.AlgodClient, source_code: str):
-    ##compile_response = client.compile(source_code)
-    ##return base64.b64decode(compile_response["result"])
-
 def main(creatorMnemFile,algodClient):
 
     creatorSK,creatorAddr=getSKAddr(creatorMnemFile)
     print(f'{"Creator address: ":32s}{creatorAddr:s}')
-
-    on_complete=OnComplete.NoOpOC.real
 
     print(f'{"Reading clear file:":32s}{tealClear:s}')
     with open(tealClear,'r') as f:
@@ -39,7 +30,6 @@ def main(creatorMnemFile,algodClient):
     print(f'{"Compiling approval file"}')
     approvalProgramResponse=algodClient.compile(approvalProgramSource)
     approvalProgram=base64.b64decode(approvalProgramResponse['result'])
-    print(f'{"Hash approval file:":32s}{approvalProgramResponse["hash"]}')
 
     # declare application state storage (immutable)
     # no need for global storage
@@ -54,6 +44,7 @@ def main(creatorMnemFile,algodClient):
 
 
     params=algodClient.suggested_params()
+
     utx=ApplicationCreateTxn(
         creatorAddr,
         params,
@@ -74,15 +65,17 @@ def main(creatorMnemFile,algodClient):
     txId=algodClient.send_transactions([stx])
     wait_for_confirmation(algodClient,txId,4)
     txResponse=algodClient.pending_transaction_info(txId)
+    print(json.dumps(txResponse,indent=2))
+
     appId=txResponse['application-index']
     print(f'{"App id:":32s}{appId:d}');
     appaddr=e.encode_address(e.checksum(b'appID'+appId.to_bytes(8, 'big')))
-     
     print(f'{"App address:":32s}{appaddr:32}')
+    print(f'{"App Hash:":32s}{approvalProgramResponse["hash"]}')
 
 if __name__=='__main__':
     if len(sys.argv)!=2:
-        print("usage: python3 "+sys.argv[0]+" <creator mnem>")
+        print("usage: python3 "+sys.argv[0]+" <creator mnem file>")
         exit()
 
     creatorMnemFile=sys.argv[1]

@@ -28,7 +28,6 @@ def wait_for_confirmation(client,transaction_id,timeout):
             is not confirmed or rejected in the next timeout rounds
     """
     cs=client.status()
-    print(json.dumps(cs,indent=2))
     start_round=cs["last-round"] + 1
     current_round=start_round
 
