@@ -6,6 +6,36 @@
 In this unit we show how to make a smart contract that verifies an
 ed25519 signature.
 
+### The contract in TEAL
+The contract has success only if it receives as first argument the signature of the string `goAlgorand` that passes the verification with respect to the address `MP75KSDYVIFBBJAHCBQEEI57RGNSS6DDZZFUEC5DUW6VNUDOA2KEDOHJJM`.
+The relevant TEAL fragment is the following
+
+```
+verify:
+byte base64(Z29BbGdvcmFuZA==)
+txn ApplicationArgs 0
+addr MP75KSDYVIFBBJAHCBQEEI57RGNSS6DDZZFUEC5DUW6VNUDOA2KEDOHJJM
+ed25519verify
+return
+```
+Here, `Z29BbGdvcmFuZA==` is the base-64 encoding of the string `goAlgorand`.
+
+The `ed25519verify` instruction exceeds the budget of a single transaction and therefore we must submit a group of three transactions. Each transaction of the group has two arguments: the TEAL contract accepts all transactions whose second argument is 0; 
+if the second argument is non-zero, it branches to `verify`  to check if the first argument is a valid signature (see above).
+The relevant TEAL fragment is the following.
+```
+txn ApplicationArgs 1
+btoi
+bnz verify
+int 1
+return 
+```
+Note that the two dummy transactions must be different and one way to differentiate them is to pass a different first argument. The first argument of the non-dummy transaction is of course the signature.
+
+The script `03-callApp.py` constructs the group of three transactions (two dummy and one with the signature) and calls the contract. The signature is hardcoded in the program in base64 format but it must be passed decoded to the contract. 
+In the next two paragraph below we explain how to extract the secret key from the mnemonic (see the file [secretkey.py](./secretkey.py) ) and how to sign a string (see the file [signFromMnem.py](signFromMnem.py) ).
+
+
 ### Extracting the secret key from the mnemonic
 We assume to have a mnemonic stored in file ```account.mnem``` and
 wish to extract the secret key to be used to sign in file ```account.skk```
