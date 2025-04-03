@@ -58,3 +58,4 @@
         goal clerk inspect
 ```
 
+*Note:* this code works with version 1.16 of algosdk
