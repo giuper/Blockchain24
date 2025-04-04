@@ -29,20 +29,17 @@ def main():
     programstr=response['result']
     print("Response Result = "+programstr)
     print("Response Hash   = "+sender)
-    
+        
     # Create logic sig
     t=programstr.encode()
     program=base64.decodebytes(t)
-    
-    # Create arg to pass if TEAL program requires an arg,
-    # if not, omit args param
-    # string parameter
     
     #arg_str="weather comfort erupt verb pet range endorse exhibit tree brush crane man"
     #arg_str="827154396965327148341689752593468271472513689618972435786235914154796823239841567"
 
     arg1=arg_str.encode()
     lsig=transaction.LogicSig(program, args=[arg1])
+
     with open(receiverADDRFile,'r') as f:
         receiver=f.read()
     closeremainderto=receiver
