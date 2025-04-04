@@ -1,0 +1,62 @@
+import sys
+import base64
+
+from algosdk.future import transaction
+from algosdk import mnemonic
+from algosdk.v2client import algod
+from utilities import algodAddress, algodToken, wait_for_confirmation
+
+def main():
+    if len(sys.argv)!=3:
+        print("Usage: ",sys.argv[0],"<receiver ADDR file> <TEAL program file> ")
+        exit()
+    
+    receiverADDRFile=sys.argv[1]
+    myprogram=sys.argv[2]
+
+    algodClient=algod.AlgodClient(algodToken,algodAddress)
+    amount=1_000_000
+    
+    # Read TEAL program
+    with open(myprogram, 'r') as f:
+        data=f.read()
+    
+    # Compile TEAL program
+    response=algodClient.compile(data)
+    sender=response['hash']
+    programstr=response['result']
+    print("Response Result = "+programstr)
+    print("Response Hash   = "+sender)
+        
+    # Create logic sig
+    t=programstr.encode()
+    program=base64.decodebytes(t)
+    
+    arg_str="weather comfort erupt verb pet range endorse exhibit tree brush crane man"
+    #arg_str="827154396965327148341689752593468271472513689618972435786235914154796823239841567"
+
+    arg1=arg_str.encode()
+    lsig=transaction.LogicSig(program, args=[arg1])
+
+    with open(receiverADDRFile,'r') as f:
+        receiver=f.read()
+    closeremainderto=receiver
+    params=algodClient.suggested_params()
+    txn = transaction.PaymentTxn(
+            sender,params,receiver,amount,closeremainderto)
+    
+    # Create the LogicSigTransaction with contract account LogicSig
+    lstx=transaction.LogicSigTransaction(txn,lsig)
+    transaction.write_to_file([lstx],sys.argv[0][:-3]+".stx")
+    # Send raw LogicSigTransaction to network
+    try:
+        txid=algodClient.send_transaction(lstx)
+        print("Transaction ID  = "+txid)
+    except Exception as e:
+        print(e)
+        exit()
+    
+    wait_for_confirmation(algodClient,txid,4)
+
+if __name__=='__main__':
+    main()
