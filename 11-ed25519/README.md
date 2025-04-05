@@ -43,7 +43,7 @@ wish to extract the secret key to be used to sign in file ```account.skk```
 Python program ```secretkey.py``` reads the mnemonic from 
 ```account.mnem``` and uses ```mnemonic.to_private_key``` that returns
 the secret key in base64 encoding.  Then it decodes it and writes it in
-```account.skk``. The encoded private key is stored in ```account.sk64```.
+```account.skk```. The encoded private key is stored in ```account.sk64```.
 
 A similar effect can be obtained by using the command
 
