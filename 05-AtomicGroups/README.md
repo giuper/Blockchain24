@@ -1,5 +1,5 @@
 # *Blockchain*
-## UNISA 24 (revised 25) ##
+## UNISA Spring 24 (revised in 25) ##
 
 ## Transaction groups ##
 
