@@ -3,6 +3,7 @@ import json
 from algosdk.v2client import algod
 from algosdk.future.transaction import AssetTransferTxn, write_to_file
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
+from localUt import TXFolder
 
 def transfer(senderMNEMFile,receiverADDRFile,assetID,algodClient):
     
@@ -17,11 +18,11 @@ def transfer(senderMNEMFile,receiverADDRFile,assetID,algodClient):
     print(f'{"User Addr:":32s}{receiverAddr:s}')
     
     txn=AssetTransferTxn(sender=senderAddr,sp=params,
-                receiver=receiverAddr,amt=1000,index=assetID)
-    write_to_file([txn],"TX/03-assetTrans.utxn")
+                receiver=receiverAddr,amt=4,index=assetID)
+    write_to_file([txn],TXFolder+"03-assetTrans.utxn")
     
     stxn=txn.sign(senderSK)
-    write_to_file([stxn],"TX/03-assetTrans.stxn")
+    write_to_file([stxn],TXFolder+"03-assetTrans.stxn")
 
     txid=algodClient.send_transaction(stxn)
     print(f'{"TX id:":32s}{txid:s}')

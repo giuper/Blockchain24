@@ -23,12 +23,11 @@ def optin(holderMNEMFile,assetID,algodClient):
     if holding:
         return
 
-    txn=AssetTransferTxn(sender=holderAddr,
-            sp=params,receiver=holderAddr,amt=0,index=assetID)
-    write_to_file([txn],TXFolder+"02-assetOPTin.utxn")
+    txn=AssetTransferTxn(sender=holderAddr,sp=params,receiver=holderAddr,amt=0,index=assetID,close_assets_to=holderAddr)
+    write_to_file([txn],TXFolder+"05-assetOPTout.utxn")
 
     stxn=txn.sign(holderSK)
-    write_to_file([stxn],TXFolder+"02-assetOPTin.stxn")
+    write_to_file([stxn],TXFolder+"05-assetOPTout.stxn")
 
 
     txid=algodClient.send_transaction(stxn)

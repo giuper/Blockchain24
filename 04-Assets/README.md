@@ -1,11 +1,12 @@
 # *Blockchain*
-## UNISA Spring 24 ##
+## UNISA Spring 24 (revised in 25) ##
 
 ## Algorand Standard Assets (ASAs) ##
 
 ### Step by step  ###
 
-1. Run [01-createAsset.py](./01-createAsset.py) to create asset with name ```DISAMIS24```.
+1. Run [01-createAsset.py](./01-createAsset.py) to create asset with name ```BlockchainUnisa25```.
+The name can be modified in [this](./localUT.py) file.
 It takes two command line arguments: 
 the filename containing the mnemonic of the creator account and
 the filename containing the address of the manager.

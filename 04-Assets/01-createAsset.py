@@ -5,8 +5,7 @@ from algosdk import account, mnemonic
 from algosdk.future import transaction 
 from algosdk.future.transaction import AssetConfigTxn
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
-AssetName="DISAMIS24"
-AssetUnit="DSMS24u"
+from localUt import AssetName, AssetUnit
 
 def createAsset(AssetName,creatorMNEMFile,managerADDRFile,algodClient):
     
@@ -39,10 +38,10 @@ def createAsset(AssetName,creatorMNEMFile,managerADDRFile,algodClient):
         url="https://github.com/giuper/Blockchain24",
         decimals=0)
 
-    transaction.write_to_file([txn],"TX/01-assetCreation.utxn")
-
+    transaction.write_to_file([txn],TXFolder+"01-assetCreation.utxn")
     stxn=txn.sign(creatorSK)
-    transaction.write_to_file([stxn],"TX/01-assetCreation.stxn")
+    transaction.write_to_file([stxn],TXFolder+"01-assetCreation.stxn")
+
     txid=algodClient.send_transaction(stxn)
     print(f'{"TX id:":32s}{txid:s}')
     

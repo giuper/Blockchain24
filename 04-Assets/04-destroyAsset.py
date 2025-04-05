@@ -5,6 +5,7 @@ from algosdk.v2client import algod
 from algosdk.future import transaction 
 from algosdk.future.transaction import AssetConfigTxn
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
+from localUt import TXFolder
 
 def destroyAsset(managerMNEMFile,assetID,algodClient):
 
@@ -15,11 +16,11 @@ def destroyAsset(managerMNEMFile,assetID,algodClient):
                        sp=params,
                        index=assetID,
                        strict_empty_address_check=False)
-    transaction.write_to_file([txn],"TX/04-assetDestroy.utxn")
+    transaction.write_to_file([txn],TXFolder+"04-assetDestroy.utxn")
     stxn=txn.sign(managerSK)
     txid=algodClient.send_transaction(stxn)
     print(f'{"TX id:":32s}{txid:s}')
-    transaction.write_to_file([stxn],"TX/04-assetDestroy.stxn")
+    transaction.write_to_file([stxn],TXFolder+"04-assetDestroy.stxn")
 
     try:
         confirmed_txn=wait_for_confirmation(algodClient,txid,4)  
