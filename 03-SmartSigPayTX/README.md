@@ -111,8 +111,9 @@ and one argument.
 This program can be used for 
 TEAL programs that take one single input that is short enough to be specified on the command line
 (like ```fortytwo.teal```).
-For program that take long inputs that are inconvenient to specify on the commad line one can 
-user ```SmartSigNoArg.py```.
+For program that take long inputs that are inconvenient to specify on the commad line 
+(like for example, ```passphrase.teal```)
+one can use ```SmartSigNoArg.py```.
 
 #### Step 1 ####
 To create the transaction we need to compute the address of the sender that is obtained
