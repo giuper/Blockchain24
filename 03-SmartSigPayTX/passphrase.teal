@@ -16,7 +16,7 @@ sha256
 byte base64 30AT2gOReDBdJmLBO/DgvjC6hIXgACecTpFDcP1bJHU=
 ==
 &&
-// Make sure the CloseRemainderTo is not set
+// Make sure the CloseRemainderTo is set equal to Receiver
 txn CloseRemainderTo
 txn Receiver 
 ==

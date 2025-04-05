@@ -6,39 +6,30 @@ from algosdk import mnemonic
 from algosdk.v2client import algod
 from utilities import algodAddress, algodToken, wait_for_confirmation
 
-def main():
-    if len(sys.argv)!=3:
-        print("Usage: ",sys.argv[0],"<receiver ADDR file> <TEAL program file> ")
-        exit()
     
-    receiverADDRFile=sys.argv[1]
-    myprogram=sys.argv[2]
 
-    algodClient=algod.AlgodClient(algodToken,algodAddress)
-    amount=1_000_000
-    
+def createAndSign(myprogramF,argStr,receiverADDRF,amount,algodClient):
+
     # Read TEAL program
-    with open(myprogram, 'r') as f:
+    with open(myprogramF,'r') as f:
         data=f.read()
     
     # Compile TEAL program
     response=algodClient.compile(data)
     sender=response['hash']
     programstr=response['result']
-    print("Response Result = "+programstr)
-    print("Response Hash   = "+sender)
+    print(f'{"Response Result":30s}{programstr:s}')
+    print(f'{"Response Hash":30s}{sender:s}')
         
     # Create logic sig
     t=programstr.encode()
     program=base64.decodebytes(t)
     
-    arg_str="weather comfort erupt verb pet range endorse exhibit tree brush crane man"
-    #arg_str="827154396965327148341689752593468271472513689618972435786235914154796823239841567"
 
-    arg1=arg_str.encode()
+    arg1=argStr.encode()
     lsig=transaction.LogicSig(program, args=[arg1])
 
-    with open(receiverADDRFile,'r') as f:
+    with open(receiverADDRF,'r') as f:
         receiver=f.read()
     closeremainderto=receiver
     params=algodClient.suggested_params()
@@ -48,10 +39,11 @@ def main():
     # Create the LogicSigTransaction with contract account LogicSig
     lstx=transaction.LogicSigTransaction(txn,lsig)
     transaction.write_to_file([lstx],sys.argv[0][:-3]+".stx")
+
     # Send raw LogicSigTransaction to network
     try:
         txid=algodClient.send_transaction(lstx)
-        print("Transaction ID  = "+txid)
+        print(f'{"Transaction ID":30s}{txid:s}')
     except Exception as e:
         print(e)
         exit()
@@ -59,4 +51,20 @@ def main():
     wait_for_confirmation(algodClient,txid,4)
 
 if __name__=='__main__':
-    main()
+    if len(sys.argv)!=3:
+        print("Usage: ",sys.argv[0],"<receiver ADDR file> <TEAL program file> ")
+        exit()
+    
+    receiverADDRF=sys.argv[1]
+    myprogramF=sys.argv[2]
+
+##specify here your argument
+##this is the passphrase to unlock passphrase.teal
+    argStr="weather comfort erupt verb pet range endorse exhibit tree brush crane man"
+
+    print(f'{"Argument for teal program":30s}{argStr:s}')
+
+    algodClient=algod.AlgodClient(algodToken,algodAddress)
+    amount=1_000_000
+
+    createAndSign(myprogramF,argStr,receiverADDRF,amount,algodClient)
