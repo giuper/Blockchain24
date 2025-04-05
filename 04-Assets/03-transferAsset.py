@@ -14,8 +14,8 @@ def transfer(senderMNEMFile,receiverADDRFile,assetID,algodClient):
     with open(receiverADDRFile,'r') as f:
         receiverAddr=f.read()
 
-    print(f'{"Sender Addr:":32s}{senderAddr:s}')
-    print(f'{"User Addr:":32s}{receiverAddr:s}')
+    print(f'{"Sender Addr:":28s}{senderAddr:s}')
+    print(f'{"Receiver Addr:":28s}{receiverAddr:s}')
     
     txn=AssetTransferTxn(sender=senderAddr,sp=params,
                 receiver=receiverAddr,amt=4,index=assetID)
@@ -25,7 +25,7 @@ def transfer(senderMNEMFile,receiverADDRFile,assetID,algodClient):
     write_to_file([stxn],TXFolder+"03-assetTrans.stxn")
 
     txid=algodClient.send_transaction(stxn)
-    print(f'{"TX id:":32s}{txid:s}')
+    print(f'{"TX id:":28s}{txid:s}')
     try:
         confirmed_txn=wait_for_confirmation(algodClient,txid,4)  
     except Exception as err:

@@ -86,6 +86,6 @@ The unsigned and signed transaction are found in files ```TX/03-assetTrans.utxn`
 
 5. Run [04-destroyAsset.py](./04-destroyAsset.py) to destroy an asset.
     Note that it is required that, at the time an asset is destroy, all instances
-    of the asset are owned by the manager.
+    of the asset are owned by the creator.
     The unsigned and signed transaction are found in files ```TX/04-assetDestroy.utxn``` and 
     ```TX/04-assetDestroy.stxn```, respectively. 

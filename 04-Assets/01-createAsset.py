@@ -5,7 +5,7 @@ from algosdk import account, mnemonic
 from algosdk.future import transaction 
 from algosdk.future.transaction import AssetConfigTxn
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
-from localUt import AssetName, AssetUnit
+from localUt import AssetName, AssetUnit, TXFolder
 
 def createAsset(AssetName,creatorMNEMFile,managerADDRFile,algodClient):
     
@@ -18,11 +18,11 @@ def createAsset(AssetName,creatorMNEMFile,managerADDRFile,algodClient):
     freezeAddr=managerAddr
     clawbackAddr=managerAddr
     
-    print(f'{"Creator Addr:":32s}{creatorAddr:s}')
-    print(f'{"Manager Addr:":32s}{managerAddr:s}')
-    print(f'{"Reserve Addr:":32s}{reserveAddr:s}')
-    print(f'{"Freeze  Addr:":32s}{freezeAddr:s}') 
-    print(f'{"ClawbackAddr: ":32s}{clawbackAddr:s}')
+    print(f'{"Creator Addr:":28s}{creatorAddr:s}')
+    print(f'{"Manager Addr:":28s}{managerAddr:s}')
+    print(f'{"Reserve Addr:":28s}{reserveAddr:s}')
+    print(f'{"Freeze  Addr:":28s}{freezeAddr:s}') 
+    print(f'{"ClawbackAddr:":28s}{clawbackAddr:s}')
 
     txn=AssetConfigTxn(
         sender=creatorAddr,
@@ -43,13 +43,13 @@ def createAsset(AssetName,creatorMNEMFile,managerADDRFile,algodClient):
     transaction.write_to_file([stxn],TXFolder+"01-assetCreation.stxn")
 
     txid=algodClient.send_transaction(stxn)
-    print(f'{"TX id:":32s}{txid:s}')
+    print(f'{"TX id:":28s}{txid:s}')
     
     confirmed_txn=wait_for_confirmation(algodClient,txid,4)
     try:
         ptx=algodClient.pending_transaction_info(txid)
         assetId=ptx["asset-index"]
-        print(f'{"Created an asset with id:":32s}{assetId:d}')
+        print(f'{"Created an asset with id:":28s}{assetId:d}')
     except Exception as e:
         print(e)
     print("Transaction information: {}".format(

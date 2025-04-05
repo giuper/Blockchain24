@@ -19,7 +19,7 @@ def destroyAsset(managerMNEMFile,assetID,algodClient):
     transaction.write_to_file([txn],TXFolder+"04-assetDestroy.utxn")
     stxn=txn.sign(managerSK)
     txid=algodClient.send_transaction(stxn)
-    print(f'{"TX id:":32s}{txid:s}')
+    print(f'{"TX id:":28s}{txid:s}')
     transaction.write_to_file([stxn],TXFolder+"04-assetDestroy.stxn")
 
     try:
