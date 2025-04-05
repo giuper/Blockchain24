@@ -1,5 +1,5 @@
 # *Blockchain*
-## UNISA Spring 24 ##
+## UNISA Spring 24 (revised in 25) ##
 
 ## Logic (or Smart) Signatures ##
 
@@ -102,7 +102,7 @@ The passphrase is
     weather comfort erupt verb pet range endorse exhibit tree brush crane man
 ```
 
-### Constructing and Signing with a Smart Signature ###
+### Constructing a Transaction and Signing it with a Smart Signature ###
 
 Python program [SmartSig.py](./SmartSig.py) prepares and submits a transaction
 logically signed by a specified TEAL program.
@@ -143,8 +143,13 @@ The logic signature of the transaction is then computed as follows
     
     #The logic signature is program + arguments
     lsig=transaction.LogicSig(program, args=[arg1])
-    #The signed transaction is txn + logic signature
+```
+
+Finally, the signed transaction is txn + logic signature
+
+```python
     lstx=transaction.LogicSigTransaction(txn,lsig)
+```
 
 
 ```
