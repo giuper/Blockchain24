@@ -7,35 +7,24 @@ RECEIVER=${ACCOUNTDir}"/receiver"
 TXDir="./TX"
 UNSIGNEDTX=${TXDir}"/Pay.utx"
 SIGNEDTX=${TXDir}"/Pay.stx"
-NODEDir="../../../testnet"
 
+#set goal according to installation
 GOAL=../../../../goal
 
 mkdir -p ${ACCOUNTDir}
 mkdir -p ${TXDir}
 
 echo "Creating the sender account"
-python3 createSingle.py ${SENDER}
+python3.10 createSingle.py ${SENDER}
 read
 clear -x
 
 echo "Creating the receiver account"
-python3 createSingle.py ${RECEIVER}
-read
+python3.10 createSingle.py ${RECEIVER} read
 clear -x
 
 echo "Executing a single sender payment transaction"
-python3 payTX.py ${SENDER}.mnem ${RECEIVER}.addr ${NODEDir}
+python3.10 payTX.py ${SENDER}.mnem ${RECEIVER}.addr 
 read
 clear -x
-
-echo "Inspecting the unsigned transaction"
-${GOAL} clerk inspect ${UNSIGNEDTX} -d ${NODEDir}
-read
-clear -x
-
-echo "Inspecting the signed transaction"
-${GOAL} clerk inspect ${SIGNEDTX} -d ${NODEDir}
-read
-
 
