@@ -10,15 +10,14 @@ import sys
 import algosdk
 from algosdk import account, mnemonic
 
-folder="../Accounts/"
 prefix="-kdpy"
 
 print("this script derives the public key in three different ways")
 print("\tas second half of the secret key obtained from the mnemonic")
 print("\tby invoking publickey method of the ED25519 library on the secret key")
 print("\tby decoding the address of the account")
-print("keys are written in folder",folder)
-print("the script needs the mnemonic that is found in folder",folder,"in a file called <account name>.mnem")
+print("the script needs the mnemonic that is found in a file called <account name>.mnem")
+print("<account name> is passed as a command line argument")
 
 if (len(sys.argv)!=2):
     print("Usage: "+sys.argv[0]+" <account name>")
@@ -26,13 +25,13 @@ if (len(sys.argv)!=2):
 accountName=sys.argv[1]
     
 ##files for the intermediate results 
-fileSK64=folder+accountName+prefix+".sk64"               #the base64-encoded secret key
-fileSK=folder+accountName+prefix+".sk"                   #the secret key in binary
-fileAddr=folder+accountName+prefix+".addr"               #the address
-filePKSDKed25519=folder+accountName+prefix+"-ed25519.pk" #the public key computed by the python implementation of ED25519
+fileSK64=accountName+prefix+".sk64"               #the base64-encoded secret key
+fileSK=accountName+prefix+".sk"                   #the secret key in binary
+fileAddr=accountName+prefix+".addr"               #the address
+filePKSDKed25519=accountName+prefix+"-ed25519.pk" #the public key computed by the python implementation of ED25519
 
 print("Derive secret and public key from mnem\n");
-with open(folder+accountName+".mnem",'r') as f:
+with open(accountName+".mnem",'r') as f:
     Mnem=f.read()
 
 SK64=mnemonic.to_private_key(Mnem)                     #obtain base64-encoded secret key from mnemonic
@@ -50,7 +49,7 @@ print(f'{"private key from splitting SK:":35s}{SK[0:32].hex()}')  #first half is
 print(f'{"public key from splitting SK:":35s}{SK[32:].hex()}\n')  #second half is the public key
 
 pk25519=publickey(SK[0:32])                                       #obtain the public key through the ED25519 python module
-print(f'{"PK from SK through ed25519new:":35s}{pk25519.hex():s}')
+print(f'{"public key from SK through ed25519new:":35s}{pk25519.hex():s}')
 print(f'{"written in file:":35s}{filePKSDKed25519:s}\n')
 with open(filePKSDKed25519,"wb") as f:
     f.write(pk25519)
