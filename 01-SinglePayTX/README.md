@@ -50,8 +50,8 @@
         txid=algodClient.send_transaction(signedTx)
     ```
 
-    The unsigned and signed transactions are found [here](TX/Pay.utx) 
-    and [here](TX/Pay.stx). These are binary files.
+    The unsigned and signed transactions are found in ```TX/Pay.utx```
+    and in ```TX/Pay.stx```. These are binary files.
     Use the following command to inspect the transactions.
 
 ```
