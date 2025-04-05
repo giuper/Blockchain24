@@ -157,8 +157,3 @@ Finally, the signed transaction is txn + logic signature
 ```python
     lstx=transaction.LogicSigTransaction(txn,lsig)
 ```
-
-
-```
-
-
