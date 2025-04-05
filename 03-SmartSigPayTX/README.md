@@ -40,8 +40,6 @@ condition.
 The last line of the TEAL program consists of instructions ```&&``` that pops two elements from the stack 
 (the output of the first two equality checks) and pushes *1* if and only if they are both *1*
 
-Script [00compile.sh](00compile.sh) computes the address of TEAL program  ```fortytwo.teal```.
-
 ### Passphrase ###
 
 [passphrase.teal](./passphrase.teal) is a simple TEAL program that terminates with success 
@@ -104,12 +102,19 @@ The passphrase is
 
 ### Constructing a Transaction and Signing it with a Smart Signature ###
 
-Python program [SmartSig.py](./SmartSig.py) prepares and submits a transaction
-logically signed by a specified TEAL program.
-The sender of the transaction will be the address of the TEAL program and the receiver is specified on the command line.
-It is assumed that the TEAL program takes one single input that i s
-passed to ```SmartSig.py``` as a command line argument.
+Python program [SmartSig.py](./SmartSig.py) prepares and submits a payment transaction
+logically signed by a TEAL program. 
+It takes as command line arguments 
+the name of the file containing the TEAL program, 
+the name of the file containing the address of the receiver,
+and one argument. 
+This program can be used for 
+TEAL programs that take one single input that is short enough to be specified on the command line
+(like ```fortytwo.teal```).
+For program that take long inputs that are inconvenient to specify on the commad line one can 
+user ```SmartSigNoArg.py```.
 
+#### Step 1 ####
 To create the transaction we need to compute the address of the sender that is obtained
 by compiling the TEAL program
 
@@ -123,12 +128,14 @@ by compiling the TEAL program
     sender=response['hash']           #the address of the TEAL program
 ```
 
+#### Step 2 ####
 The transaction is then constructed as any other transaction by calling
 
 ```python
     txn = transaction.PaymentTxn(sender,params,receiver,amount,closeremainderto)
 ```
 
+#### Step 3 ####
 The logic signature of the transaction is then computed as follows
 
 ```python
@@ -143,6 +150,7 @@ The logic signature of the transaction is then computed as follows
     
 ```
 
+#### Step 4 ####
 Finally, the signed transaction is txn + logic signature
 
 ```python
