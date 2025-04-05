@@ -20,7 +20,7 @@ return
 ```
 Here, `Z29BbGdvcmFuZA==` is the base-64 encoding of the string `goAlgorand`.
 
-The `ed25519verify` instruction exceeds the budget of a single transaction and therefore we must submit a group of three transactions. Each transaction of the group has two arguments: the TEAL contract accepts all transactions whose second argument is 0; 
+The `ed25519verify` instruction exceeds (1900) the budget of a single transaction (700) and therefore we must submit a group of three transactions. Each transaction of the group has two arguments: the TEAL contract accepts all transactions whose second argument is 0; 
 if the second argument is non-zero, it branches to `verify`  to check if the first argument is a valid signature (see above). Keep in mind that this is just a domonstration and that if we pass one transaction with second argument 0 and no signature at all, the contract is satisfied. 
 The relevant TEAL fragment is the following.
 ```
