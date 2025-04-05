@@ -5,6 +5,6 @@ Cryptographic background:
 
 W. Stallman, Cryptography and Network Security. Chapters 3, 4, 6, 7, 9, 11, 13. 
 
-*[Slides](./Slides) and [code](./Code)*
+*[Slides](./Slides)
 
 *[Exercises](./EserciziBlockchain.pdf)*
