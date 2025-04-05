@@ -38,7 +38,7 @@ def createAndSign(myprogramF,argStr,receiverADDRF,amount,algodClient):
     
     # Create the LogicSigTransaction with contract account LogicSig
     lstx=transaction.LogicSigTransaction(txn,lsig)
-    transaction.write_to_file([lstx],sys.argv[0][:-3]+".stx")
+    transaction.write_to_file([lstx],"TX/"+sys.argv[0][:-3]+".stx")
 
     # Send raw LogicSigTransaction to network
     try:
