@@ -39,30 +39,30 @@ def swap(account1,account2,assetId,algodClient):
     write_to_file([stxn2],TXFolder+"A2toA1withGID.stx")
 
     print("Asset holding before the transaction")
-    print("Account 1:      ",pk1)
+    print(f'{"Account 1:":28s}{pk1:s}')
     print_asset_holding(algodClient,pk1,assetId)
     print()
-    print("Account 2:      ",pk2)
+    print(f'{"Account 2:":28s}{pk2:s}')
     print_asset_holding(algodClient,pk2,assetId)
 
     signedTL=[stxn1,stxn2]
     txid=algodClient.send_transactions(signedTL)
-    print("Transaction id: ",txid)
+    print(f'{"Transaction id:":28s}{txid:s}')
 
     wait_for_confirmation(algodClient,txid,4)
 
     print()
     print("Asset holding after the transaction")
-    print("Account 1:      ",pk1)
+    print(f'{"Account 1:":28s}{pk1:s}')
     print_asset_holding(algodClient,pk1,assetId)
     print()
-    print("Account 2:      ",pk2)
+    print(f'{"Account 2:":28s}{pk2:s}')
     print_asset_holding(algodClient,pk2,assetId)
 
 
 if __name__=="__main__":
     if (len(sys.argv)!=4):
-        print("Usage: python "+sys.argv[0]+" <account1> <account2> <assetId>")
+        print("Usage: python "+sys.argv[0]+" <account1 sending asset> <account2 sending algo> <assetId>")
         exit()
 
     account1=sys.argv[1]
