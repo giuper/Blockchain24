@@ -1,39 +1,24 @@
 #!/bin/bash
 
+#specify your version of python
+python=python3.10
 
-accountDir="./Accounts"
-account1=${accountDir}/P1
-account2=${accountDir}/P2
-account3=${accountDir}/P3
+account1=P1
+account2=P2
+account3=P3
+accountMulti=M
 
 txDir="./TX"
 unsignedTX=${txDir}/"MultiPay.utx"
 unsignedWithPKTX=${txDir}/"MultiPayWithPK.utx"
 signedTX=${txDir}/"MultiPay.stx"
 
-GOAL=../../../goal
-NODEDIR=../../../testnet
-
 echo "Creating a 2 out of 3 multisig account"
-python3 createMultiAddr.py ${account1} ${account2} ${account3} 
+${python} createMultiAddr.py ${account1}.addr ${account2}.addr ${account3}.addr ${accountMulti}.addr
 read
 
 mkdir -p ${txDir}
 echo "Creating a multisig TX"
-python3 multiPayTXComplete.py ${account1} ${account2} ${account3} ${account1} ${account2} ${account3} ~/node/testnet
+${python} multiPayTXComplete.py ${account1}.addr ${account2}.addr ${account3}.addr ${account1}.mnem ${account3}.mnem ${account2}.addr
 
 
-echo "Inspecting the transactions"
-read
-
-echo "Inspecting the Unsigned Transaction"
-${GOAL} clerk inspect ${unsignedTX} -d ${NODEDIR}
-read
-
-echo "Inspecting the Unsigned Transaction with PK"
-${GOAL} clerk inspect ${unsignedWithPKTX} -d ${NODEDIR}
-read
-
-echo "Inspecting the Signed Transaction"
-${GOAL} clerk inspect ${signedTX} -d ${NODEDIR}
-read
