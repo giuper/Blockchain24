@@ -25,11 +25,16 @@
 
     The *addr* is a human-readable address that will constitute the Algorand address of the 
     account as it will appear on the blockchain.
-    See [this](https://developer.algorand.org/docs/get-details/accounts/) for details on how the address is generated from the public key.
+    See [this](https://developer.algorand.org/docs/get-details/accounts/) 
+    and [this](https://dev.algorand.co/concepts/accounts/keys-signing/)
+    for details on how the address is generated from the public key.
 
     The script [frommnem.py](./KeyDerivationP/frommnem.py) recovers both the secret key (that is, the signing key)
-    and the public key (that is, the verification key) from the mnemonic. Again see
-    [this](https://developer.algorand.org/docs/get-details/accounts/) for details.
+    and the public key (that is, the verification key) from the mnemonic.
+    Again, see
+    [this](https://developer.algorand.org/docs/get-details/accounts/) 
+    and [this](https://dev.algorand.co/concepts/accounts/keys-signing/)
+    for details.
 
 2. Script [payTX.py](payTX.py) creates a payment transaction.
     It takes the (name of the file containing) the mnemonic of the sender,
