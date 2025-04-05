@@ -1,5 +1,5 @@
 # *Blockchain*
-## UNISA 24 ##
+## UNISA 24 (revised 25) ##
 
 ## Transaction groups ##
 
@@ -30,18 +30,7 @@ an atomic group of two transactions:
 1. Account1 sends 10 Algos to Account2
 2. Account2 sends 4 instances of an ASA to Account1
 
-Script [atomicSwap.py](./atomicSwap.py) takes as input two account addresses, an asset id,
-and the directory of the node.
+Script [atomicSwap.py](./atomicSwap.py) takes as input two account addresses and an asset id, and 
+submits the group of transactions.
 
-We have the following transactions (use ```goal clerk inspect``` to see the content of the transactions)
-
-1.  [Unsigned transaction from Account1 to Account2](TX/A1toA2.utx)
-2.  [Unsigned transaction from Account1 to Account2 with GID](TX/A1toA2withGID.utx)
-3.  [Signed transaction from Account1 to Account2 with GID](TX/A1toA2withGID.stx)
-
-and 
-1.  [Unsigned transaction from Account2 to Account1](TX/A2toA1.utx)
-2.  [Unsigned transaction from Account2 to Account1 with GID](TX/A2toA1withGID.utx)
-3.  [Signed transaction from Account2 to Account1 with GID](TX/A2toA1withGID.stx)
-    
 
