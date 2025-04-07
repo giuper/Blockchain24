@@ -74,3 +74,5 @@ The script performs the following operations:
 
 ### References
 [This](https://developer.algorand.org/articles/verify-signatures-and-signed-data-within-algorand-smart-contracts/) article is very useful.
+
+[This](https://developer.algorand.org/docs/get-details/dapps/avm/teal/opcodes/v10/) web page lists the cost of all TEAL opcodes.
