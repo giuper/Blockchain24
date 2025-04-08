@@ -36,7 +36,7 @@ The script `03-callApp.py` constructs the group of three transactions (two dummy
 In the next two paragraph below we explain how to extract the secret key from the mnemonic (see the file [secretkey.py](./secretkey.py) ) and how to sign a string (see the file [signFromMnem.py](signFromMnem.py) ).
 
 
-### Extracting the secret key from the mnemonic
+### Extracting secret/public key from the mnemonic
 We assume to have a mnemonic stored in file ```account.mnem``` and
 wish to extract the secret key to be used to sign in file ```account.skk```
 
