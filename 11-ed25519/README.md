@@ -40,6 +40,16 @@ In the next two paragraph below we explain how to extract the secret key from th
 We assume to have a mnemonic stored in file ```account.mnem``` and
 wish to extract the secret key to be used to sign in file ```account.skk```
 
+The method ```mnemonic.to_private_key``` constructs the secret key from the mnemonic.
+This is the base64 encoding of the pair *(sk,pk)* where each component is 32byte.
+*sk* is the randomness used to generate the point *A* that constitutes the *pk*.
+Specifically, *H(sk)=(s,k)* and *A=sB*, where *B* is a publicly known point on the curve.
+
+Python program ```publickey.py``` reads the mnemonic from a mnem file and outputs the public key
+computed in two different ways: by splitting the secret key and returning the second half, 
+and by using the first half of the secret key as a random seed to obtain the public key with
+the *publickey* method of the pythong implementation of the Ed25519.
+
 Python program ```secretkey.py``` reads the mnemonic from 
 ```account.mnem``` and uses ```mnemonic.to_private_key``` that returns
 the secret key in base64 encoding.  Then it decodes it and writes it in
