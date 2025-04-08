@@ -38,7 +38,7 @@ In the next two paragraph below we explain how to extract the secret key from th
 
 ### Extracting secret/public key from the mnemonic
 We assume to have a mnemonic stored in file ```account.mnem``` and
-wish to extract the secret key to be used to sign in file ```account.skk```
+wish to extract the secret+public key to be used to sign in file ```account.skk```
 
 The method ```mnemonic.to_private_key``` constructs the secret key from the mnemonic.
 This is the base64 encoding of the pair *(sk,pk)* where each component is 32byte.
