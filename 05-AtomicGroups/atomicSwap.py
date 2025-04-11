@@ -20,7 +20,7 @@ def swap(account1,account2,assetId,algodClient):
 
 ##account2 pays account1 1Algo 
     txn2=PaymentTxn(
-        sender=pk2,sp=params,receiver=pk1,amt=1_000_000)
+        sender=pk2,sp=params,receiver=pk1,amt=10_000_000)
     write_to_file([txn2],TXFolder+"A2toA1.utx")
 
 ##create the group
