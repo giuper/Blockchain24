@@ -21,5 +21,9 @@ if __name__=="__main__":
 
     account1=sys.argv[1]
     account2=sys.argv[2]
+    with open(account1,'r') as f:
+        pk1=f.read()[:58]
+    with open(account2,'r') as f:
+        pk2=f.read()[:58]
     algodClient=algod.AlgodClient(algodToken,algodAddress)
-    step1(account1,account2)
+    step1(pk1,pk2,algodClient)

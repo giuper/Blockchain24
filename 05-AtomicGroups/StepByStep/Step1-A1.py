@@ -11,8 +11,8 @@ def step1(pk1,pk2,algodClient):
     params=algodClient.suggested_params()
 ##account2 pays account1 1Algo 
     txn1=AssetTransferTxn(
-        sender=pk1,sp=params,receiver=pk2,amt=4,index=assetId)
-    write_to_file([txn2],TXFolder+"step1A1.utx")
+        sender=pk1,sp=params,receiver=pk2,amt=4,index=737294246)
+    write_to_file([txn1],TXFolder+"step1A1.utx")
 
 if __name__=="__main__":
     if (len(sys.argv)!=3):
@@ -21,5 +21,10 @@ if __name__=="__main__":
 
     account1=sys.argv[1]
     account2=sys.argv[2]
+    with open(account1,'r') as f:
+        pk1=f.read()[:58]
+    with open(account2,'r') as f:
+        pk2=f.read()[:58]
+
     algodClient=algod.AlgodClient(algodToken,algodAddress)
-    step1(account1,account2)
+    step1(pk1,pk2,algodClient)
