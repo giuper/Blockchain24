@@ -12,7 +12,7 @@ def transfer(senderMNEMFile,receiverADDRFile,assetID,algodClient):
     senderSK,senderAddr=getSKAddr(senderMNEMFile)
 
     with open(receiverADDRFile,'r') as f:
-        receiverAddr=f.read()
+        receiverAddr=f.read()[:58]
 
     print(f'{"Sender Addr:":28s}{senderAddr:s}')
     print(f'{"Receiver Addr:":28s}{receiverAddr:s}')
