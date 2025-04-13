@@ -1,7 +1,7 @@
 import sys
 from algosdk.v2client import algod
 from algosdk.future.transaction import AssetTransferTxn, PaymentTxn, retrieve_from_file, write_to_file
-from utilities import  getSKAddr
+from utilities import getSKAddr
 
 TXFolder="TX/"
 

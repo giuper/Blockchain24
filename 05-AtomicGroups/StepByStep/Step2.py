@@ -1,5 +1,5 @@
 import sys
-from algosdk.future.transaction import AssetTransferTxn, PaymentTxn, retrieve_from_file, write_to_file
+from algosdk.future.transaction import AssetTransferTxn, PaymentTxn, retrieve_from_file, write_to_file, calculate_group_id
 from utilities import getSKAddr
 
 TXFolder="TX/"

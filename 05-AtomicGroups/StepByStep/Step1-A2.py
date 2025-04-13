@@ -1,15 +1,15 @@
 import sys
 from algosdk.v2client import algod
-from algosdk.future.transaction import AssetTransferTxn, PaymentTxn, write_to_file,calculate_group_id
-from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
-from utilityAsset import print_asset_holding
+from algosdk.future.transaction import PaymentTxn, write_to_file
+from utilities import algodAddress, algodToken
 
 TXFolder="TX/"
 
 def step1(pk1,pk2,algodClient):
 
     params=algodClient.suggested_params()
-##account2 pays account1 1Algo 
+
+##account2 pays account1 10 Algo 
     txn2=PaymentTxn(
         sender=pk2,sp=params,receiver=pk1,amt=10_000_000)
     write_to_file([txn2],TXFolder+"step1A2.utx")
