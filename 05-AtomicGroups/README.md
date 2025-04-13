@@ -35,7 +35,9 @@ submits the group of transactions.
 
 In [folder](./StepByStep) the steps needed to submit a group are implemented in independent scripts.
 
-    1. In the [first step of A1](./StepByStep/Step1-A1.py) Account1 creates a payment transaction for 10 Algo to Account 2.
-    2. In the [first step of A2](./StepByStep/Step1-A2.py) Account2 creates an asset transfer transaction for 4 coints to Account1.
-    ,3. In the second step, Account1
+    1. In the [first step of A1](./StepByStep/Step1-A1.py) Account1 creates a payment transaction for 10 Algo to Account2.
+    2. In the [first step of A2](./StepByStep/Step1-A2.py) Account2 creates an asset transfer transaction for 4 coints to Account1 and sends the transaction to Account1.
+    3. In the second step, Account1 computes the group id of the two transactions computed by the previous two steps, adds to its transactions and signs it. The group id is sent to Account2.
+    4. In the third step Account2 adds the group id to its transaction, signs it and sends to Account1
+    5. In the fourth step Account1 submits the two signed transactions.
 
