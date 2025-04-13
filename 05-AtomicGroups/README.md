@@ -33,4 +33,9 @@ an atomic group of two transactions:
 Script [atomicSwap.py](./atomicSwap.py) takes as input two account addresses and an asset id, and 
 submits the group of transactions.
 
+In [folder](./StepByStep) the steps needed to submit a group are implemented in independent scripts.
+
+    1. In the [first step of A1](./StepByStep/Step1-A1.py), Account1 creates a payment transaction for 10 Algo to Account 2.
+    2. In the [first step of A2](./StepByStep/Step1-A2.py), Account2 creates an asset transfer transaction for 4 coints to Account1.
+    3. In the second step, Account1
 
