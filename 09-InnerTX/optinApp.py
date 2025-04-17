@@ -22,7 +22,7 @@ def main(MnemFile,index,algodClient):
     print(f'{"User address: ":32s}{playerAddr:s}')
 
     note="Opt in fee"
-    payTx=PaymentTxn(playerAddr,params,appAddr,500_000,None,note)
+    payTx=PaymentTxn(playerAddr,params,appAddr,10_000_000,None,note)
     optTx=ApplicationOptInTxn(playerAddr,params,index)
     gid=transaction.calculate_group_id([payTx, optTx])
 
