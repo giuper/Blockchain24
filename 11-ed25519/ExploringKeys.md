@@ -13,8 +13,8 @@ The primary reference is the [Ed25519 web site](https://ed25519.cr.yp.to/).
 
 The signature scheme uses the twisted Edwards form of an elliptic curve in Montogomery form.
 Specifically we start from elliptic curve
-
-$Bv^2=u^3+Au^2+u$ with $A\ne\pm 2$ and $B\ne 0.$
+$$Bv^2=u^3+Au^2+u$$
+with $A\ne\pm 2$ and $B\ne 0.$
 
 The secret key *sk* is a 256-bit random value.
 By using *sk* with SHA512 we obtain two 256-bit values *(s,k)=SHA512(sk)*. 
