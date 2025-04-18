@@ -1,5 +1,4 @@
 #!/usr/bin/python3.10
-from ed25519 import publickey_unsafe as publickey
 from ed25519 import signature_unsafe as sign
 from ed25519 import decodepoint, encodepoint, edwards_add, encodeint, decodeint, checkvalid, H, bit, Hint, scalarmult_B, l, q, isoncurve, b
 from Cryptodome.Hash import SHA512
