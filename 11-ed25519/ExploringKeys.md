@@ -50,7 +50,7 @@ of the base point *B*.
 We assume to have a mnemonic stored in file ```account.mnem```.
 
 #### Step 1: from mnem
-The python program [ed25519keys.py](./ed25519keys.pl) reads the mnemonic from a mnem file and 
+The python program [ed25519keys.py](./ed25519keys.py) reads the mnemonic from a mnem file and 
 performs the following:
 1. obtains *SK64enc* from ```mnemonic.to_private_key```
 2. decodes *sK64enc* from base64 encoding to obtain *SK64* and sets *sk=SK64[:32]* and *pk=SK64[32:]*
