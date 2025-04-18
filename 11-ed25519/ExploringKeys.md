@@ -12,11 +12,19 @@ be extracted from the mnem file and from an Algorand address.
 The primary reference is the [Ed25519 web site](https://ed25519.cr.yp.to/).
 
 The signature scheme uses the twisted Edwards form of an elliptic curve in Montogomery form.
-Specifically we start from elliptic curve
+Specifically we start from elliptic curve in Montgomery form
 
 $$Bv^2=u^3+Au^2+u$$
 
-with $A\ne\pm 2$ and $B\ne 0.$
+with $A\ne\pm 2$ and $B\ne 0$ and we obtain the twisted Edwards form 
+
+$$ax^2+y^2=1+dx^2y^2$$
+
+with $a,d\ne 0$ and $a\ne d$ by applying the map
+
+$$(u,v)\rightarrow (x,y)=(\frac{u}{v},\frac{u-1}{u+1})$$
+
+which sets $a=(A+2)/B$ and $d=(A-2)/B$.
 
 The secret key *sk* is a 256-bit random value.
 By using *sk* with SHA512 we obtain two 256-bit values *(s,k)=SHA512(sk)*. 
