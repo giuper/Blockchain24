@@ -32,7 +32,7 @@ if __name__=='__main__':
     print(f'{"The secret key in hex":30s}{SK.hex()}')
 
     sek=hashlib.sha512(SK).digest()
-    #using a different library to compute the has
+    #using a different library to compute the hash
     #s512=SHA512.new() 
     #s512.update(SK)
     #seka=s512.digest()
