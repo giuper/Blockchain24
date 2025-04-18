@@ -1,11 +1,11 @@
 #!/usr/bin/python3.10
 from ed25519 import publickey_unsafe as publickey
-from ed25519 import decodepoint, encodepoint, edwards_double, H, B, bit, scalarmult_B, q
+from ed25519 import decodepoint, encodepoint, B, bit, scalarmult_B, q
 import base64
 import sys
 from algosdk import mnemonic
-from Cryptodome.Hash import SHA512
 import hashlib
+from Cryptodome.Hash import SHA512
 
 def checkEqualityPoints(P,Q):
     (x1,y1,z1,t1)=P
