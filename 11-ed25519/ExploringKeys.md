@@ -78,7 +78,7 @@ In this step the program uses the secondo half of SK64 as computed in Step 1.
 In the final step we close the circle: we compute the Algorand address from the point *PS* obtained
 in Step 1. Specifically,
 1. *PS* is encoded
-2. the encoded point is passed through SHA512 and the last 4 bytes are appended to 
+2. the encoded point is passed through SHA512/256 and the last 4 bytes are appended to 
 the encoded point to obtain the marshalled point
 3. the marshalled point is base32 encoded and the last six "=" are removed to obtain
 the Algorand address
