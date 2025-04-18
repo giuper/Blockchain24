@@ -7,9 +7,9 @@ Algorand uses the Ed25519 signature scheme to sign transactions and an Algorand 
 essentially an Ed25519 verification (aka public) key.
 In this unit we explore the way public and secret key (that is, verification and signing keys) can
 be extracted from the mnem file and from an Algorand address.
-
-### The Ed25519 signature scheme
 The primary reference is the [Ed25519 web site](https://ed25519.cr.yp.to/).
+
+### The curve and the points
 
 The signature scheme uses the twisted Edwards form of an elliptic curve in Montogomery form.
 Specifically we start from elliptic curve in Montgomery form
@@ -25,6 +25,17 @@ with $a,d\ne 0$ and $a\ne d$ by applying the map
 $$(u,v)\rightarrow (x,y)=\left(\frac{u}{v},\frac{u-1}{u+1}\right)$$
 
 which sets $a=(A+2)/B$ and $d=(A-2)/B$.
+
+In Ed25519 we set $B=1$ and $A=48662$ over the field modulo the prime $q=2^{255}-19$.
+which in twisted Edwards form becomes
+
+$$-x^2+y^2=1-\frac{121665}{121666} x^2y^2.$$
+
+A point $(x,y)$ over the Edwards curve is represented in extended coordinates
+$(X,Y,Z,T)$ such that
+
+
+$$x=\frac{X}{Z}\quad y=\frac{Y}{Z}\quad x\cdot y=\frac{T}{Z}.$$
 
 The secret key *sk* is a 256-bit random value.
 By using *sk* with SHA512 we obtain two 256-bit values *(s,k)=SHA512(sk)*. 
