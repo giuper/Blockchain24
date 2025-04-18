@@ -37,6 +37,11 @@ $(X,Y,Z,T)$ such that
 
 $$x=\frac{X}{Z},\qquad y=\frac{Y}{Z}, \qquad x\cdot y=\frac{T}{Z}.$$
 
+Note that the extended coordinates are not unique. Thus to check if
+$(X,Y,Z,T)$ and $(X',Y',Z',T')$ are representation of the same point  $(x,y)$
+one must check that
+$$X\cdot Z'=X'\cdot Z,\qquad Y\cdot Z'=Y'\cdot Z$$
+
 ### Secret and Public key
 The secret key *sk* is a 256-bit random value and the public key *pk* is a multiple
 of the base point *B*.
@@ -44,52 +49,36 @@ of the base point *B*.
 ### Extracting secret/public key from the mnemonic
 We assume to have a mnemonic stored in file ```account.mnem```.
 
-Python program ```ed25519keys.py``` reads the mnemonic from a mnem file and 
+#### Step 1: from mnem
+The python program [ed25519keys.py](./ed25519keys.pl) reads the mnemonic from a mnem file and 
 performs the following:
-1. obtains *SK64enc* from ```mnemonic.to_private_key''' 
+1. obtains *SK64enc* from ```mnemonic.to_private_key```
 2. decodes *sK64enc* from base64 encoding to obtain *SK64* and sets *sk=SK64[:32]* and *pk=SK64[32:]*
-3. *sk* is the private key and *pk* is the *encoded* point of the public key (see later)
+3. *sk* is the private key and *pk* is the *encoded* point of the public key (see Step 4)
 4. computed *SHA512(sk)* and splits the 64 bytes obtained in 2 32 byte quantity *s* and *k*
 5. the integer *s* is from the first 256 bits of *SHA512(sk)* and the point *PS=sB* that consitutes the public key is obtained by multiplying the base point *B* by *s*
 6. the four extended coordinates of *B* and *PS* are printed
 
-computed in two different ways: by splitting the secret key and returning the second half, 
-and by using the first half of the secret key as a random seed to obtain the public key with
-the *publickey* method of the pythong implementation of the Ed25519.
+#### Step 2: from addr
+The python program ```ed25519keys.py``` reads an algorand address from an addr file
+and performs the following:
+1. Append "======" to the addr to obtain a valid base32 encoding
+2. Decode the encoding thus to obtain an encoded point
+3. Decode and print the extended coordinates of the point
 
-Python program ```secretkey.py``` reads the mnemonic from 
-```account.mnem``` and uses ```mnemonic.to_private_key``` that returns
-the secret key in base64 encoding.  Then it decodes it and writes it in
-```account.skk```. The encoded private key is stored in ```account.sk64```.
+#### Step 3: using the package ed25519.py
+In this step the program uses the secret key to obtain the public key through a method from
+the package ed25519.py (an open source python implementation of the signature scheme).
 
-A similar effect can be obtained by using the command
-
-```~/node/algokey import -m <mnem> --keyfile <fileforsecretkey>```
-
-where ```<mnem>``` is the 25-word mnemonic (not the name of the file containing it).
-
-Note that the two secret keys extracted differ but they produce the same signature.
-<Discussion to be added>
+#### Step 4: using the second half of SK64
+In this step the program uses the secondo half of SK64 as computed in Step 1. 
 
 
-### Signing using the secret key
-Once we have the secret key we can proceed to sign the data.
-To avoid signature replay attacks, we apply domain separation and thus the actual data that the ```ed25519verify`` opcode expects is 
-a 64 byte signature of the string “ProgData” concatenated with the hash of the program and the data that was signed (see [this](https://developer.algorand.org/articles/verify-signatures-and-signed-data-within-algorand-smart-contracts/)). 
-The signature can be obtained with the following command:
-
-```goal clerk tealsign --data-b64 <data B64 encoded>  --contract-addr <hash of teal file> --keyfile <secret key file>```
-
-### Signing from python
-[This](./signFromMnem.py) script takes on the command line a file containing a mnemonic (without the .mnem extension), a TEAL compiled program (without the .tok extension) and the string to be signed. It uses the implementation of the EdDSA signature scheme over Curve25519 found at [https://github.com/pyca/ed25519](https://github.com/pyca/ed25519).
-The script performs the following operations:
-
-1. Goes from mnemonic to base64 encoded private key using the ```mnemonic.to_private_key``` from the SDK and then obtaines the private key by b64decoding the string obtained. This results in 64 bytes, the first 32 bytes are the secret key and the remaining are the public key.
-2. The public key is derived also from the secret key by applying the ```publickey``` method from the python implementation in Ed25519.
-3. The hash of the program is computed in two different ways: from the address of the program (now it is hard-coded in the script) or by reading the bytecode and by hashing it. The string "Program" is used for has domain separation.
-4. Finally the signature is computed by signing the concatenation of the string "ProgData" (for domain separation), the unmarshaled (i.e., without the 4 byte checksym) hash of the byte code and the actual string to be signed.
-
-### References
-[This](https://developer.algorand.org/articles/verify-signatures-and-signed-data-within-algorand-smart-contracts/) article is very useful.
-
-[This](https://developer.algorand.org/docs/get-details/dapps/avm/teal/opcodes/v10/) web page lists the cost of all TEAL opcodes.
+#### Step 5: computing the Algorand address
+In the final step we close the circle: we compute the Algorand address from the point *PS* obtained
+in Step 1. Specifically,
+1. *PS* is encoded
+2. the encoded point is passed through SHA512 and the last 4 bytes are appended to 
+the encoded point to obtain the marshalled point
+3. the marshalled point is base32 encoded and the last six "=" are removed to obtain
+the Algorand address

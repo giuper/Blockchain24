@@ -11,11 +11,8 @@ def checkEqualityPoints(P,Q):
     (x1,y1,z1,t1)=P
     (x2,y2,z2,t2)=Q
 
-    if (x1*z2-x2*z1)%q!=0:
-        return "F"
-    if (y1*z2-y2*z1)%q!=0:
-        return "F"
-    return "T"
+    return (x1*z2-x2*z1)%q==0 and (y1*z2-y2*z1)%q==0
+
 
 def mnemonicToPublic(mnemFile):
     with open(mnemFile,'r') as f:
@@ -29,6 +26,7 @@ if __name__=='__main__':
         print("Usage: "+sys.argv[0]+" <account name>")
         exit()
 
+    print("Step 1: public and secret key from mnem")
     mnemFile=sys.argv[1]+".mnem"
     SK,PK=mnemonicToPublic(mnemFile)
     print(f'{"The secret key in hex":30s}{SK.hex()}')
@@ -43,7 +41,7 @@ if __name__=='__main__':
     #print(sek.hex())
     #print(seka.hex())
 
-    print(f'{"The point B from the definition"}')
+    print(f'{"The base point B"}')
     print(f'{"":20s}{"X":10s}{B[0]}')
     print(f'{"":20s}{"Y":10s}{B[1]}')
     print(f'{"":20s}{"Z":10s}{B[2]}')
@@ -67,35 +65,57 @@ if __name__=='__main__':
     print()
 
 
+    print("\nStep 2: public from addr")
+
     addrFile=sys.argv[1]+".addr"
     with open(addrFile,'r') as f:
         addr=f.read()
     PKaddr=(base64.b32decode(addr+'======'))[:-4]
-
-    PKm=publickey(SK)
     print(f'{"The public key in hex":30s}')
-    print(f'{"":5s}{"from addr file:":30s}{PKaddr.hex()}')
-    print(f'{"":5s}{"from publickey method:":30s}{PKm.hex()}')
-    print(f'{"":5s}{"from splitting extended SK:":30s}{PK.hex()}')
+    print(f'{"from addr file:":30s}{PKaddr.hex()}')
+    addrDecP=decodepoint(PKaddr)
+    if not checkEqualityPoints(PS,addrDecP):
+        print("Errore!")
+        exit()
+    print(f'{"The point from the addr"}')
+    print(f'{"":20s}{"X":10s}{addrDecP[0]}')
+    print(f'{"":20s}{"Y":10s}{addrDecP[1]}')
+    print(f'{"":20s}{"Z":10s}{addrDecP[2]}')
+    print(f'{"":20s}{"T":10s}{addrDecP[3]}')
+    print(f'{"The point encoded":30s}{PKaddr.hex()}')
 
-    print(f'{"The public key as a point":30s}')
-    
-    toPrint=[["from addr file",PKaddr],["from public method",PKm],["from splitting extended SK",PK]]
-    for (msg,binP) in toPrint:
-        addrDecP=decodepoint(binP)
-        ff=checkEqualityPoints(PS,addrDecP)
-        print(f'{ff:5s}{msg:30s}')
+    print("\nStep 3: public from SK thorugh the package")
+    PKm=publickey(SK)
+    addrDecP=decodepoint(PKm)
+    if not checkEqualityPoints(PS,addrDecP):
+        print("Errore!")
+        exit()
+    print(f'{"The point from the addr"}')
+    print(f'{"":20s}{"X":10s}{addrDecP[0]}')
+    print(f'{"":20s}{"Y":10s}{addrDecP[1]}')
+    print(f'{"":20s}{"Z":10s}{addrDecP[2]}')
+    print(f'{"":20s}{"T":10s}{addrDecP[3]}')
+    print(f'{"The point encoded":30s}{PKm.hex()}')
 
-        for i in range(4):
-            print(f'{"":10}{addrDecP[i]}')
-    
+    print("\nStep 4: public from second half of SK")
+    addrDecP=decodepoint(PK)
+    if not checkEqualityPoints(PS,addrDecP):
+        print("Errore!")
+        exit()
+    print(f'{"The point from the addr"}')
+    print(f'{"":20s}{"X":10s}{addrDecP[0]}')
+    print(f'{"":20s}{"Y":10s}{addrDecP[1]}')
+    print(f'{"":20s}{"Z":10s}{addrDecP[2]}')
+    print(f'{"":20s}{"T":10s}{addrDecP[3]}')
+    print(f'{"The point encoded":30s}{PK.hex()}')
 
-    print(f'{"The public key in Algorand format":30s}')
+
+    print("\nStep 5: address from point computed at Step 1")
+    ePS=encodepoint(PS)
     ss=SHA512.new(truncate="256")
-    ss.update(PKm)
+    ss.update(ePS)
     marshall=ss.digest()
-    MarshalledPKm=PKm+marshall[-4:]
-    #print(f'{"computed:":30s}{MarshalledPKm}')
+    MarshalledePS=ePS+marshall[-4:]
     print(f'{"from addr file:":30s}{addr}')
-    Marshalled64PKm=base64.b32encode(MarshalledPKm).decode('utf-8')
-    print(f'{"in Algorand format:":30s}{Marshalled64PKm}')
+    Marshalled64ePS=base64.b32encode(MarshalledePS).decode('utf-8')
+    print(f'{"from point":30s}{Marshalled64ePS[:-6]}')
