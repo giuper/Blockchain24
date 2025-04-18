@@ -38,9 +38,9 @@ $(X,Y,Z,T)$ such that
 $$x=\frac{X}{Z},\qquad y=\frac{Y}{Z}, \qquad x\cdot y=\frac{T}{Z}.$$
 
 Note that the extended coordinates are not unique. Thus to check if
-$(X,Y,Z,T)$ and $(X',Y',Z',T')$ are representation of the same point  $(x,y)$
+$(X_0,Y_0,Z_0,T_0)$ and $(X_1,Y_1,Z_1,T_1)$ are representation of the same point  $(x,y)$
 one must check that
-$$X\cdot Z'=X'\cdot Z,\qquad Y\cdot Z'=Y'\cdot Z$$
+$$X_0\cdot Z_1=X_1\cdot Z_0,\qquad Y_0\cdot Z_1=Y_1\cdot Z_0$$
 
 ### Secret and Public key
 The secret key *sk* is a 256-bit random value and the public key *pk* is a multiple
