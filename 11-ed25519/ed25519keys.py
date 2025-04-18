@@ -51,8 +51,8 @@ if __name__=='__main__':
     s=2**(254) + sum(2**i*bit(sek,i) for i in range(3,254))
     print(f'{"The 256-bit multiplier s":30s}{s:d}')
 
-    #the point that constitute the public key is s*B
-    #B is a public point from Ed25519 definition
+    #the point that appears in the public key is s*B
+    #B is the base point from Ed25519 definition
     PS=scalarmult_B(s)
     print(f'{"The point s*B in the public key"}')
     print(f'{"":20s}{"X":10s}{PS[0]}')
