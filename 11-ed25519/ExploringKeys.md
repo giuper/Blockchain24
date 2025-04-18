@@ -22,7 +22,7 @@ $$ax^2+y^2=1+dx^2y^2$$
 
 with $a,d\ne 0$ and $a\ne d$ by applying the map
 
-$$(u,v)\rightarrow (x,y)=(\frac{u}{v},\frac{u-1}{u+1})$$
+$$(u,v)\rightarrow (x,y)=\left(\frac{u}{v},\frac{u-1}{u+1}\right)$$
 
 which sets $a=(A+2)/B$ and $d=(A-2)/B$.
 
