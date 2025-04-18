@@ -1,10 +1,11 @@
 # *Blockchain*
 ## UNISA Spring 25 ##
 
-## Using ed25519 in contracts
+## Using Ed25519 in contracts
 
 In this unit we show how to make a smart contract that verifies an
-ed25519 signature.
+Ed25519 signature. 
+Check [this](./ExploringKeys.md) file for a discussion of how Ed25519 keys are used and encoded in Algorand.
 
 ### The contract in TEAL
 The contract has success only if it receives as first argument the signature of the string `goAlgorand` that passes the verification with respect to the address `MP75KSDYVIFBBJAHCBQEEI57RGNSS6DDZZFUEC5DUW6VNUDOA2KEDOHJJM`.
