@@ -35,13 +35,15 @@ A point $(x,y)$ over the Edwards curve is represented in extended coordinates
 $(X,Y,Z,T)$ such that
 
 
-$$x=\frac{X}{Z}\quad y=\frac{Y}{Z}\quad x\cdot y=\frac{T}{Z}.$$
+$$x=\frac{X}{Z},\qquad y=\frac{Y}{Z}, \qquad x\cdot y=\frac{T}{Z}.$$
 
-The secret key *sk* is a 256-bit random value.
 By using *sk* with SHA512 we obtain two 256-bit values *(s,k)=SHA512(sk)*. 
 The public key is the point *sB*, where *B* is the base point.
 The value *k* is used in computing the signature of a message.
 
+### Secret and Public key
+The secret key *sk* is a 256-bit random value and the public key *pk* is a multiple
+of the base point *B*.
 
 ### Extracting secret/public key from the mnemonic
 We assume to have a mnemonic stored in file ```account.mnem```.
@@ -50,13 +52,16 @@ base64 encoding of the pair *(sk,pk)* where each component is 256-bit long.
 *sk* is the randomness used to generate the point *A* that constitutes the *pk*.
 Specifically, *H(sk)=(s,k)* and *A=sB*, where *B* is a publicly known point on the curve.
 
-Python program ```ed25519keys.py``` reads the mnemonic from a mnem file and performs the following:
+Python program ```ed25519keys.py``` reads the mnemonic from a mnem file and 
+performs the following:
     1. obtains *SK64enc* from ```mnemonic.to_private_key''' 
-    2. decodes *sK64enc* base64 to obtain *SK64* and sets *sk=SK64[:32]* and *pk=SK64[32:]*
+    2. decodes *sK64enc* from base64 encoding to obtain *SK64* and sets 
+            *sk=SK64[:32]* and *pk=SK64[32:]*
     3. *sk* is the private key and *pk* is the *encoded* point of the public key (see later)
-    4. obtains the integer *s* from the first 256 bits of *SHA512(sk)*
-    5. obtains point *PS* by multiplying the Ed25519 base point *B* by *s*
-    4. the four components of *B* and of *PS* are printed
+    4. computed *SHA512(sk)* and splits the 64 bytes obtained in 2 32 byte quantity *s* and *k*
+    4. the integer *s* is from the first 256 bits of *SHA512(sk)* and the point *PS=sB*
+       that consitutes the public key is obtained by multiplying the base point *B* by *s*
+    4. the four extended coordinates of *B* and *PS* are printed
 
 computed in two different ways: by splitting the secret key and returning the second half, 
 and by using the first half of the secret key as a random seed to obtain the public key with
