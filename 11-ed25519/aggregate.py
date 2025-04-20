@@ -26,11 +26,16 @@ def equalpoints(A,B):
     return (x1 * z2 - x2 * z1) % q == 0 and (y1 * z2 - y2 * z1) % q == 0  
 
 if __name__=='__main__':
-    if (len(sys.argv)<3):
-        print("Usage: "+sys.argv[0]+" <account name> <account name>")
+    if (len(sys.argv)<4):
+        print("Usage: "+sys.argv[0]+" <account name> <account name> <msg file>")
         exit()
 
-    m=b'Go Signature'
+    m=b'Go SignatureSSSS'
+    with open(sys.argv[3],'r') as f:
+        menc=f.read()
+    m=base64.b64decode(menc)
+    print(f'{"message (hex):":28s}{m.hex()}')
+    print(f'{"message (b64):":28s}{menc}')
 
     AliceSK,AlicePK=mnemonicToPublic(sys.argv[1]+".mnem")
     BobSK,BobPK=mnemonicToPublic(sys.argv[2]+".mnem")
@@ -51,10 +56,20 @@ if __name__=='__main__':
     PAgg=edwards_add(PA,PB)
     RAgg=edwards_add(RA,RB)
 
-    Sa=(ra+Hint(encodepoint(RAgg)+encodepoint(PAgg)+m)*sa)%l
-    Sb=(rb+Hint(encodepoint(RAgg)+encodepoint(PAgg)+m)*sb)%l
+    HH=Hint(encodepoint(RAgg)+encodepoint(PAgg)+m)
+    Sa=(ra+HH*sa)%l
+    print(f'{"hint:":28s}{HH:d}')
+    print(f'{"r1:":28s}{ra:d}')
+    print(f'{"r2:":28s}{rb:d}')
+    print(f'{"s1:":28s}{Sa:d}')
+    
+    Sb=(rb+HH*sb)%l
+    print(f'{"s2:":28s}{Sb:d}')
+
     SAgg=(Sa+Sb)%l
 
     SigAgg=encodepoint(RAgg)+encodeint(SAgg)
+    print(f'{"sig (hex):":28s}{(SigAgg[:32]).hex()}')
+    print(f'{"":28s}{(SigAgg[32:]).hex()}')
     
     checkvalid(SigAgg,m,encodepoint(PAgg))
