@@ -75,7 +75,8 @@ The signature can be obtained with the following command:
 ```goal clerk tealsign --data-b64 <data B64 encoded>  --contract-addr <hash of teal file> --keyfile <secret key file>```
 
 ### Signing from python
-[This](./signFromMnem.py) script takes on the command line a file containing a mnemonic (without the .mnem extension), the name of file containing a TEAL compiled program (without the .tok extension) and the string to be signed. It uses the implementation of the EdDSA signature scheme over Curve25519 found at [https://github.com/pyca/ed25519](https://github.com/pyca/ed25519).
+[This](./signFromMnem.py) script takes on the command line a file containing a mnemonic (without the .mnem extension), the name of file containing a TEAL compiled program (without the .tok extension) the string to be signed, and, alternatively to the tok file, the encoded hash of the TEAL program.
+It uses the implementation of the EdDSA signature scheme over Curve25519 found at [https://github.com/pyca/ed25519](https://github.com/pyca/ed25519).
 The script performs the following operations:
 
 1. Goes from mnemonic to base64 encoded private key using the ```mnemonic.to_private_key``` from the SDK and then obtaine the private key by b64decoding the string obtained. This results in 64 bytes, the first 32 bytes are the secret key and the remaining are the public key.

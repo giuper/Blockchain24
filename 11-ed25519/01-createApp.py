@@ -9,7 +9,7 @@ from algosdk.v2client import algod
 from algosdk.future.transaction import write_to_file, ApplicationCreateTxn, OnComplete, StateSchema
 from utilities import algodAddress, algodToken, wait_for_confirmation, getSKAddr
 
-tealApproval="TEAL/ed25519.teal"
+tealApproval="TEAL/edCompact.teal"
 tealClear="TEAL/clear.teal"
 
 def main(creatorMnemFile,algodClient):
@@ -30,6 +30,8 @@ def main(creatorMnemFile,algodClient):
     print(f'{"Compiling approval file"}')
     approvalProgramResponse=algodClient.compile(approvalProgramSource)
     approvalProgram=base64.b64decode(approvalProgramResponse['result'])
+    print(f'{"App Hash:":32s}{approvalProgramResponse["hash"]}')
+    exit()
 
     # declare application state storage (immutable)
     # no need for global storage

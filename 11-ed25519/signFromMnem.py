@@ -9,7 +9,7 @@ from Cryptodome.Hash import SHA512
 
 
 if (len(sys.argv)<4):
-    print("Usage: "+sys.argv[0]+" <account name> <tok file> <data to be signed> [address of program]")
+    print("Usage: "+sys.argv[0]+" <account name> <tok file> <data to be signed> [encoded hash of program]")
     exit()
 
 MnemFile=sys.argv[1]+".mnem"

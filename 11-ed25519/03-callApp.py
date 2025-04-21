@@ -16,7 +16,7 @@ def main(MnemFile,index,algodClient):
     print(f'{"User address:":20s}{Addr:s}')
     print(f'{"Calling app:":20s}{index:d}')
 
-    signature64='MkiiTrSOF15IlUIWt/REzDOboC1Us064NHpzW5iYU5t9vGcgAGKICT0qtn8Sr7SmBdU9+f1eLlWjVVYQGmlIAA=='
+    signature64='jRLWRZNmuORdBW6rWvNBw6CqEMgPFJ+8feEnj+bQzglRt3Kde3PMX0WZ345izMfHmNpg1iOgwTkSSZOJhR4yCQ=='
     signature=base64.b64decode(signature64)
     print(f'{"sig64":20s}{signature64}')
     print(f'{"sig":20s}{signature}')
