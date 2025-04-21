@@ -75,12 +75,20 @@ The signature can be obtained with the following command:
 ```goal clerk tealsign --data-b64 <data B64 encoded>  --contract-addr <hash of teal file> --keyfile <secret key file>```
 
 ### Signing from python
-[This](./signFromMnem.py) script takes on the command line a file containing a mnemonic (without the .mnem extension), a TEAL compiled program (without the .tok extension) and the string to be signed. It uses the implementation of the EdDSA signature scheme over Curve25519 found at [https://github.com/pyca/ed25519](https://github.com/pyca/ed25519).
+[This](./signFromMnem.py) script takes on the command line a file containing a mnemonic (without the .mnem extension), the name of file containing a TEAL compiled program (without the .tok extension) and the string to be signed. It uses the implementation of the EdDSA signature scheme over Curve25519 found at [https://github.com/pyca/ed25519](https://github.com/pyca/ed25519).
 The script performs the following operations:
 
-1. Goes from mnemonic to base64 encoded private key using the ```mnemonic.to_private_key``` from the SDK and then obtaines the private key by b64decoding the string obtained. This results in 64 bytes, the first 32 bytes are the secret key and the remaining are the public key.
+1. Goes from mnemonic to base64 encoded private key using the ```mnemonic.to_private_key``` from the SDK and then obtaine the private key by b64decoding the string obtained. This results in 64 bytes, the first 32 bytes are the secret key and the remaining are the public key.
 2. The public key is derived also from the secret key by applying the ```publickey``` method from the python implementation in ed25519.
-3. The hash of the program is computed in two different ways: from the address of the program (now it is hard-coded in the script) or by reading the bytecode and by hashing it. The string "Program" is used for has domain separation.
+3. The hash of the program is computed in two different ways: 
+3.1 from the encoded hash of the program (hard-coded in the script). 
+The encoded hash is obtained as an output by the compiling command ```goal clerk compile``` that produces the bytecode file. 
+Alternatively, as the ```hash``` field of the dict returned by the ```compile``` method of the  ```algod.AlgodClient``` class executed on the TEAL source file. 
+Note that the ```compile``` method returns the bytecode in the ```result``` field.
+The actual hash is obtained by appending the appropriate number of `=` characters and then base32 decoding the encoded hash.
+3.2 or by reading the bytecode, prepending the string ```Program``` to it for domain separation and then by hashing it with SHA512/256. The value obtained is then hashed again and the last 4 bytes are appended as a checksum
+to obtain the final value.
+The string "Program" is used for hash domain separation.
 4. Finally the signature is computed by signing the concatenation of the string "ProgData" (for domain separation), the unmarshaled (i.e., without the 4 byte checksym) hash of the byte code and the actual string to be signed.
 
 ### References
