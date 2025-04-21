@@ -1,0 +1,80 @@
+#pragma version 10
+// Handle each possible OnCompletion type. We don't have to worry about
+// handling ClearState, because the ClearStateProgram will execute in that
+// case, not the ApprovalProgram.
+
+txn OnCompletion
+int NoOp
+==
+bnz handle_noop
+
+txn OnCompletion
+int OptIn
+==
+bnz handle_optin
+
+txn OnCompletion
+int CloseOut
+==
+bnz handle_closeout
+
+txn OnCompletion
+int UpdateApplication
+==
+bnz handle_updateapp
+
+txn OnCompletion
+int DeleteApplication
+==
+bnz handle_deleteapp
+
+// Unexpected OnCompletion value. Should be unreachable.
+err
+
+handle_noop:
+// Handle NoOp
+// Check for creator
+// Charlie
+addr 27H4EYQSKLJGGJYI7YPV3TQQMUHUGFN2JWVDPZFVDK7RHBDZGNPY2CKPPU
+txn Sender
+==
+bnz handle_optin
+
+txn ApplicationArgs 1
+btoi
+bnz verify
+int 1
+return 
+
+verify:
+byte base64(Z29BbGdvcmFuZA==)
+txn ApplicationArgs 0
+//AB.addr in the CompactSig folder
+addr XCMR7V73RKJKZ3HIU4JZXQDHW5OGB34BZMNC2YBUQAOYFNRTE5JNAWIQFU
+ed25519verify
+return
+
+handle_optin:
+int 1
+return
+
+handle_closeout:
+// Handle CloseOut
+//approval
+int 1
+return
+
+handle_deleteapp:
+// Check for creator
+addr 66UMCFO6OTJG3GB56F26LHWWBQJCBGNEHE5QMTQLNBSBX4XH24F6XQMFGM
+txn Sender
+==
+return
+
+handle_updateapp:
+// Check for creator
+txn Sender
+addr 66UMCFO6OTJG3GB56F26LHWWBQJCBGNEHE5QMTQLNBSBX4XH24F6XQMFGM
+==
+return
+
