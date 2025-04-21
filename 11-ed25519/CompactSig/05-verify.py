@@ -40,7 +40,6 @@ if __name__=='__main__':
         PAggAddr=f.read()
     PAggEnc=(base64.b32decode(PAggAddr+'======'))[:-4]
     print(f'{"public (hex)":28s}{PAggEnc.hex()}')
-    pk=decodepoint(PAggEnc)
     pk=PAggEnc
 
     with open(sys.argv[2],'r') as f:
@@ -53,4 +52,5 @@ if __name__=='__main__':
     sig=base64.b64decode(encSig)
     print(f'{"signature (hex):":28s}{(sig[:32]).hex()}')
     print(f'{"":28s}{(sig[32:]).hex()}')
+
     checkvalid(sig,m,pk)

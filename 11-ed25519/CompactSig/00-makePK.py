@@ -1,6 +1,6 @@
 #!/usr/bin/python3.10
-from ed25519 import signature_unsafe as sign
-from ed25519 import decodepoint, encodepoint, edwards_add, encodeint, decodeint, checkvalid, H, bit, Hint, scalarmult_B, l, q, isoncurve, b
+from ed25519 import decodepoint, encodepoint
+from ed25519 import edwards_add, H, bit, scalarmult_B
 from Cryptodome.Hash import SHA512
 import base64
 import sys
@@ -19,11 +19,6 @@ def extractSK(sk):
     k=bytes([h[j] for j in range(32,64)])
     return (s,k)
 
-
-def equalpoints(A,B):
-    (x1,y1,z1,t1)=A
-    (x2,y2,z2,t2)=B
-    return (x1 * z2 - x2 * z1) % q == 0 and (y1 * z2 - y2 * z1) % q == 0  
 
 if __name__=='__main__':
     if (len(sys.argv)<4):

@@ -60,8 +60,10 @@ if __name__=='__main__':
     HH=Hint(encodepoint(RAgg)+encodepoint(PAgg)+m)
     s=2 ** (b - 2) + sum(2**i * bit(h, i) for i in range(3, b - 2))
     S=(r1+HH*s)%l
+    print(f'{"sk:":28s}{SK}')
     print(f'{"hint:":28s}{HH:d}')
     print(f'{"r:":28s}{r1:d}')
+    print(f'{"s:":28s}{s:d}')
     print(f'{"S:":28s}{S:d}')
     
     SigFile=sys.argv[1]+".sig"

@@ -1,7 +1,4 @@
 #!/usr/bin/python3.10
-from ed25519 import publickey_unsafe as publickey
-from ed25519 import signature_unsafe as signature
-from ed25519 import checkvalid
 import base64
 import sys
 from algosdk import mnemonic
@@ -10,12 +7,23 @@ from Cryptodome.Hash import SHA512
 if __name__=='__main__':
 
     if (len(sys.argv)<4):
-        print("Usage: "+sys.argv[0]+" <tok file> <data to be signed> <msg file>")
+        print("Usage: "+sys.argv[0]+" <tok file> <data to be signed> <msg file> [encodedHash]")
         exit()
 
     TokFile=sys.argv[1]+".tok"
     DataToBeSigned=sys.argv[2]
     MsgFile=sys.argv[3]
+    if len(sys.argv)==5:
+        progAddr=sys.argv[4]
+        print(f'{"computing hash of program:":28s}')
+        print(f'{"starting from encoded hash:":28s}{progAddr:s}')
+        if len(progAddr)%8!=0:
+            progAddr=progAddr+"="*(8-len(progAddr)%8)
+        print(f'{"padded address:":28s}{progAddr:s}')
+        hashV=base64.b32decode(progAddr)
+        print(f'{"length in bytes":28s}{len(hashV):d}')
+        print(f'{"hashV":28s}{hashV}')
+
     
     print(f'{"computing hash of program:":28s}')
     print(f'{"starting from program:":28s}{TokFile:s}')
