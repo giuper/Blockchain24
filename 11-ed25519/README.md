@@ -82,7 +82,7 @@ The script performs the following operations:
 2. The public key is derived also from the secret key by applying the ```publickey``` method from the python implementation in ed25519.
 3. The hash of the program is computed in two different ways: 
     1. from the encoded hash of the program (hard-coded in the script). 
-The encoded hash is obtained as an output by the compiling command ```goal clerk compile``` that produces the bytecode file.  Alternatively, as the ```hash``` field of the dict returned by the ```compile``` method of the  ```algod.AlgodClient``` class executed on the TEAL source file.  Note that the ```compile``` method returns the bytecode in the ```result``` field.  The actual hash is obtained by appending the appropriate number of `=` characters and then base32 decoding the encoded hash.
+The encoded hash is obtained as an output by the compiling command ```goal clerk compile``` that produces the bytecode file.  Alternatively, as the ```hash``` field of the dict returned by the ```compile``` method of the  ```algod.AlgodClient``` class executed on the TEAL source file.  Note that the ```compile``` method returns the bytecode in the ```result``` field.  The actual hash is obtained by appending the appropriate number of `=` characters and then by base32 decoding the encoded hash.
     2. or by reading the bytecode, prepending the string ```Program``` to it for domain separation and then by hashing it with SHA512/256. The value obtained is then hashed again and the last 4 bytes are appended as a checksum
 to obtain the final value.
 The string "Program" is used for hash domain separation.
