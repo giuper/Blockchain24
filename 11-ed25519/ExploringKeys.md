@@ -45,6 +45,7 @@ $$X_0\cdot Z_1=X_1\cdot Z_0,\qquad Y_0\cdot Z_1=Y_1\cdot Z_0$$
 ### Secret and Public key
 The secret key *sk* is a 256-bit random value and the public key *pk* is a multiple
 of the base point *B*.
+For Ed25519, a point *B* of order $q/8=2^{252}+27742317777372353535851937790883648493$ has been chosen.
 
 ### Extracting secret/public key from the mnemonic
 We assume to have a mnemonic stored in file ```account.mnem```.
