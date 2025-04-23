@@ -39,7 +39,7 @@ the following algorithm is executed.
 
 3. **Verifying**
 To verify signature $(R,S)$ for message *m* against public key *pk=A*
-    1. $P\leftaqrrow S\cdot B$
+    1. $P\leftarrow S\cdot B$
     2. $h\leftarrow$ *SHA512(R+pk+m)*
     3. $Q\leftarrow R+h\cdot A$
     4. return ``valid`` if and only $P=Q$
