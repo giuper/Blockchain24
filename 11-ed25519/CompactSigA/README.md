@@ -91,14 +91,14 @@ $$S=S_1+S_2=(r_1+r_2)+h\cdot (s_1+s_2)=(r_1+r_2)+h\cdot s$$
 
 and that
 
-$$R=(r_1+r_2)\cdot B$
+$$R=(r_1+r_2)\cdot B$$
 
 therefore we will have that
 
 $$P=S\cdot B=((r_1+r_2)+h\cdot s)\cdot B=(r_1+r_2)\cdot B+h\cdot s\cdot B 
-=R+h\cdot A=Q$$
+=R+h\cdot A=Q.$$
 
-Therefore, the same verification algorithm can be used to verify
+Thus the same verification algorithm can be used to verify
 the signature. This implies that we can use the same TEAL contract
 (with the destination public key) to verify that a message has
 been signed by multiple parties (i.e., the parties whose public keys
