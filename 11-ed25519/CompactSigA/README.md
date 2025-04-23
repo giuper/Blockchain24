@@ -86,10 +86,15 @@ $R_i=r_i\cdot B$, and sends $R_i$ to the other party.
 
 ### Signature verification
 Observe that 
+
 $$S=S_1+S_2=(r_1+r_2)+h\cdot (s_1+s_2)=(r_1+r_2)+h\cdot s$$
+
 and that
+
 $$R=(r_1+r_2)\cdot B$
+
 therefore we will have that
+
 $$P=S\cdot B=((r_1+r_2)+h\cdot s)\cdot B=(r_1+r_2)\cdot B+h\cdot s\cdot B 
 =R+h\cdot A=Q$$
 
