@@ -109,8 +109,36 @@ We have implemented the above in the following scripts:
 1. [Destination public key](00-makePKa.py).
     The destination address is obtained by specifying the files with 
     two Algorand addresses.
-2. [Computing $R_i$](02-writeRa.py) it outputs the value $R_i$
-3. [Computing half signature](03-signa.py) it takes as input
-$R_1$ and $R_2$ and a mnem file and outputs half signature $S_i$
-4. [Summing the half signatures](04-suma.py) it takes four files containing $R_1,S_1,R_2,$ and $S_2$ and outputs the signature.
+2. [Computing $R_i$](02-writeRa.py) The value $R_i$ is computed and written in a file. It takes as input the name of the account and the file containing the message and writes in the value in a ``.R`` file. 
+This script must be executed by each player and it accesses the mnem file 
+of the account specified.
+3. [Computing half signature](03-signa.py) it takes as input the names of
+the two accounts and accesses the respective ``.R`` files,
+and the ``mnem`` file of the first account. 
+It writes the *half signature* of the first account in the ``.sig`` file.
+This script must be executed by each player by specifying its ownaccount as first account.
+4. [Summing the half signatures](04-suma.py) it takes the names of the two account and access the respective ``.R`` and ``.sig`` files 
+and outputs the signature. It must be executed only once by either one of the players (as no ``mnem`` file is accessed) 
+
+### Computing the message
+Algorand implements strict domain separation for the signature and therefore
+the message to be signed depends on the specific role. In this folder we
+have two script:
+1. [To sign a message for TEAL code](01-makeMSGTeal.py)
+This is used to compose the message to be signed for verification by a TEAL script. 
+It takes as input the name of the file containing the compiled TEAL program 
+(or alternatively the encoded hash of the TEAL program),
+and the actual data to be signed as well 
+as the name of the file that will contain the message. 
+2. [To sign a payment ](01-makeMSGTx.py)
+This can be used to sign a transaction. 
+It takes as input the name of the file containing the unsigned transaction
+and the name of the file that will contain the message. 
+
+    1.  The script [makeTX.py](makeTX.py) can be used to construct 
+        a simple payment transaction. 
+        It takes as input the name of the sender account 
+        and of the receiver accounts as well as the file that will contain the signed transaction.
+    2.  The script [sendTX.py](sendTX.py) can be used to submit the 
+        transaction created at the previous step.
 
