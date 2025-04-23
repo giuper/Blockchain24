@@ -72,7 +72,9 @@ performs the following:
 The python program ```ed25519keys.py``` reads an algorand address from an addr file
 and performs the following:
 1. Append "======" to the addr to obtain a valid base32 encoding
-2. Decode the encoding thus to obtain a compress point
+2. Decode the encoding thus to obtain a compress point as specified
+in the 
+[RFC](https://www.rfc-editor.org/rfc/rfc8032#section-5.1.2)
 3. Decompress the point and print the extended coordinates of the point
 
 #### Step 3: using the package ed25519.py
@@ -86,7 +88,8 @@ In this step the program uses the secondo half of SK64 as computed in Step 1.
 #### Step 5: computing the Algorand address
 In the final step we close the circle: we compute the Algorand address from the point *PS* obtained
 in Step 1. Specifically,
-1. *PS* is compressed (as specified in the [RFC](https://www.rfc-editor.org/rfc/rfc8032#section-5.1.2))
+1. *PS* is compressed (as specified in the 
+[RFC](https://www.rfc-editor.org/rfc/rfc8032#section-5.1.2))
 2. the compress point is passed through SHA512/256 and the last 4 bytes are appended to the compressed point to obtain the marshalled point
 3. the marshalled point is base32 encoded and the last six "=" are removed to obtain
 the Algorand address
