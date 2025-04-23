@@ -12,7 +12,8 @@ The primary reference is the [Ed25519 web site](https://ed25519.cr.yp.to/).
 ### The curve and the points
 
 The signature scheme uses the twisted Edwards form of an elliptic curve in Montogomery form.
-Specifically we start from elliptic curve in Montgomery form
+Specifically,
+we start from an elliptic curve in Montgomery form
 
 $$Bv^2=u^3+Au^2+u$$
 
@@ -26,9 +27,10 @@ $$(u,v)\rightarrow (x,y)=\left(\frac{u}{v},\frac{u-1}{u+1}\right)$$
 
 which sets $a=(A+2)/B$ and $d=(A-2)/B$.
 
-In Ed25519 we set $B=1$ and $A=48662$ over the field modulo the prime $q=2^{255}-19$
-and the curve has the following 
-twisted Edwards form 
+In Ed25519, we use
+[Curve25519](https://www.rfc-editor.org/rfc/rfc7748#section-4.1),
+with $B=1$ and $A=48662$ over the field modulo the prime $q=2^{255}-19$.
+Curve25519 has the following twisted Edwards form 
 
 $$-x^2+y^2=1-\frac{121665}{121666} x^2y^2.$$
 
@@ -46,7 +48,12 @@ $$X_0\cdot Z_1=X_1\cdot Z_0,\qquad Y_0\cdot Z_1=Y_1\cdot Z_0$$
 ### Secret and Public key
 The secret key *sk* is a 256-bit random value and the public key *pk* is a multiple
 of the base point *B*.
-For Ed25519, a point *B* of order $q/8=2^{252}+27742317777372353535851937790883648493$ has been chosen.
+For Ed25519, the point *B* of order $q/8=2^{252}+27742317777372353535851937790883648493$ is inherited from the specification of Curve25519 and it 
+has the following two coordinates:
+
+$$x=15112221349535400772501151409588531511454012693041857206046113283949847762202$$
+and 
+$$y=46316835694926478169428394003475163141307993866256225615783033603165251855960.$$
 
 ### Extracting secret/public key from the mnemonic
 We assume to have a mnemonic stored in file ```account.mnem```.
