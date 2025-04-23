@@ -26,8 +26,9 @@ $$(u,v)\rightarrow (x,y)=\left(\frac{u}{v},\frac{u-1}{u+1}\right)$$
 
 which sets $a=(A+2)/B$ and $d=(A-2)/B$.
 
-In Ed25519 we set $B=1$ and $A=48662$ over the field modulo the prime $q=2^{255}-19$.
-which in twisted Edwards form becomes
+In Ed25519 we set $B=1$ and $A=48662$ over the field modulo the prime $q=2^{255}-19$
+and the curve has the following 
+twisted Edwards form 
 
 $$-x^2+y^2=1-\frac{121665}{121666} x^2y^2.$$
 
