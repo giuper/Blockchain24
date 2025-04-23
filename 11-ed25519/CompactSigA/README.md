@@ -30,7 +30,7 @@ One might say that the pair $(s,k)$ is the actual secret key.
 2. **Signing**
 To sign a message *m* using secret key *sk* and public key *pk*,
 the following algorithm is executed.
-```
+```latex
     1. $(s,k)\leftarrow$ *SHA512(sk)*.
     2. $r\leftarrow$ *SHA512(k+m)*
     3. $R\leftarrow r\cdot B$
