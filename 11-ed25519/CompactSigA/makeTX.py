@@ -41,8 +41,9 @@ def main():
         rAddr=f.read()
     print(f'{"Receiver address:":32s}{rAddr:s}')
 
+    utxF=sys.argv[3]+".utx"
     utx=payTX(sAddr,rAddr,amount,algodClient)
-    write_to_file([utx],sys.argv[3])
+    write_to_file([utx],utxF)
 
 if __name__=='__main__':
     main()

@@ -84,5 +84,4 @@ def combineHalfSig(R1,S1,R2,S2,verbose=False):
     if verbose:
         print(f'{"signature (hex):":28s}{SnonEnc[:32].hex()}')
         print(f'{"":28s}{SnonEnc[32:].hex()}')
-        print(f'{"":28s}{len(SnonEnc):d}')
     return SnonEnc

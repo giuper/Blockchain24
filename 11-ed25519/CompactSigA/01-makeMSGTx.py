@@ -7,9 +7,9 @@ from algosdk.future.transaction import retrieve_from_file
 if __name__=='__main__':
 
     if (len(sys.argv)<3):
-        print("Usage: "+sys.argv[0]+" <utx file> <msg to be signed>")
+        print("Usage: "+sys.argv[0]+" <utx file> <file for the msg>")
         exit()
-    utxF=sys.argv[1]
+    utxF=sys.argv[1]+".utx"
     msgF=sys.argv[2]
 
     tx=retrieve_from_file(utxF)[0]
