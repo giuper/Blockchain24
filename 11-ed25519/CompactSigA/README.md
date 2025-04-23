@@ -102,3 +102,15 @@ are *accumulated* into the destination public key).
 
 ### More than two parties
 The generalization to more than 2 parties is straightforward.
+
+### The implementation
+We have implemented the above in the following scripts:
+
+1. [Destination public key](00-makePKa.py).
+    The destination address is obtained by specifying the files with 
+    two Algorand addresses.
+2. [Computing $R_i$](02-writeRa.py) it outputs the value $R_i$
+3. [Computing half signature](03-signa.py) it takes as input
+$R_1$ and $R_2$ and a mnem file and outputs half signature $S_i$
+4. [Summing the half signatures](04-suma.py) it takes four files containing $R_1,S_1,R_2,$ and $S_2$ and outputs the signature.
+
