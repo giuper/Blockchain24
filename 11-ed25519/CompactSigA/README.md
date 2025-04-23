@@ -33,11 +33,16 @@ the following algorithm is executed.
     1. $(s,k)\leftarrow$ *SHA512(sk)*.
     2. $r\leftarrow$ *SHA512(k+m)*
     3. $R\leftarrow r\cdot B$
-    4. $h\leftarrow$ *SHA512(R+pk*m)$
+    4. $h\leftarrow$ *SHA512(R+pk+m)*
     5. $S=(r+h)\cdot a$
     6. return $(R,S)$
 
 3. **Verifying**
+To verify signature $(R,S)$ for message *m* against public key *pk=A*
+    1. $P\leftaqrrow S\cdot B$
+    2. $h\leftarrow$ *SHA512(R+pk+m)*
+    3. $Q\leftarrow R+h\cdot A$
+    4. return ``valid`` if and only $P=Q$
 
 
 
