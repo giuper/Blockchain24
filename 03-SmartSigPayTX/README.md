@@ -148,6 +148,7 @@ The logic signature of the transaction is then computed as follows
     # Adding arguments
     arg_str=sys.argv[3]
     arg1=arg_str.encode()
+    lsig=transaction.LogicSig(program, args=[arg1])
     
 ```
 
